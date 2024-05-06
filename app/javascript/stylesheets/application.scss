@@ -1,1 +1,39 @@
 @use '~bootstrap/scss/bootstrap';
+
+// テキスト修飾
+.gray-underline, .gray-underline:hover, .gray-underline:visited{
+  text-decoration: underline;
+  text-decoration-color: #bbb;
+}
+
+// 色ボタン
+.pink-btn{
+  color: #ff91bb;
+  border-color:#ff91bb;
+}
+
+.pink-btn:hover{
+  color: #fff;
+  background-color: #ff91bb;
+  border-color:#ff91bb;
+}
+
+.white-btn{
+  color: #fff;
+  border-color:#fff;
+}
+
+.white-btn:hover{
+  color: #555;
+  background-color: #fff;
+  border-color:#fff;
+}
+
+// フォームデザイン
+.designed-forms{
+  width: 350px;
+  background-color: #fff;
+  border: 2px solid #ff91bb;
+  padding: 20px 20px;
+  border-radius: 20px;
+}
