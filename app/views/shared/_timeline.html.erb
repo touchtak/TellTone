@@ -1,0 +1,18 @@
+<% posts.each do |post| %>
+  <div>
+    <% if post.respond_to?(:creater_id) && post.creater_id.present? %>
+      <%= link_to creater_path(post.creater) do %>
+        <div>
+          <%= post.body %>
+          <%= post.image %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= link_to viewer_path(post.viewer) do %>
+        <div>
+          <%= post.body %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+class PostNumbering < ApplicationRecord
+end
