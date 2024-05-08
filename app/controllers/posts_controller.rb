@@ -3,9 +3,17 @@ class PostsController < ApplicationController
   def index
   end
 
+  # 投稿詳細
   def show
-    @viewer_post = ViewerPost.where(post_numbering_id: params[:id])
-    @creater_post = CreaterPost.where(post_numbering_id: params[:id])
+    if CreaterPost.where(post_numbering_id: params[:id]).first.present?
+      @post = CreaterPost.where(post_numbering_id: params[:id]).first
+
+    elsif ViewerPost.where(post_numbering_id: params[:id]).first.present?
+      @post = ViewerPost.where(post_numbering_id: params[:id]).first
+
+    else
+      flash[:notice] = "投稿が存在しません"
+    end
   end
 
   # ビューワー投稿作成画面
@@ -34,7 +42,7 @@ class PostsController < ApplicationController
       redirect_to session[:previous_url]
     else
       post_numbering.delete
-      @viewer_post = viewer_post
+      @viewer_post = ViewerPost.new
       render :viewer_post_new
     end
   end
@@ -49,26 +57,46 @@ class PostsController < ApplicationController
 
   # クリエイター投稿作成処理
   def creater_post_create
+    creater_post = CreaterPost.new(creater_post_params)
+    creater_post.user_id = current_user.id
+    creater_post.viewer_id = current_user.creater.id
 
     # 投稿管理id作成
     post_numbering = PostNumbering.new
-    if post_numbering.save
-      creater_post = CreaterPost.new(creater_post_params)
-      creater_post.post_numbering_id = post_numbering.id
-    else
-      @creater_post = CreaterPost.new
-      render :creater_post_new
-    end
+    post_numbering.save
 
-    # クリエイター投稿作成
-    if viewer_post.save
+    creater_post.post_numbering_id = post_numbering.id
+
+    if creater_post.save
       flash[:notice] = "投稿しました"
       redirect_to session[:previous_url]
     else
       post_numbering.delete
       @creater_post = CreaterPost.new
-      redirect :creater_post_new
+      render :creater_post_new
     end
+  end
+
+  # 投稿削除処理
+  def destroy
+    if CreaterPost.where(post_numbering_id: params[:id]).first.present?
+      post = CreaterPost.where(post_numbering_id: params[:id]).first
+
+    elsif ViewerPost.where(post_numbering_id: params[:id]).first.present?
+      post = ViewerPost.where(post_numbering_id: params[:id]).first
+
+    else
+      flash[:notice] = "投稿が存在しません"
+    end
+
+    # flashメッセージ
+    if post.destroy
+      flash[:notice] = "削除しました"
+    else
+      flash[:notice] = "削除に失敗しました"
+    end
+
+    redirect_back(fallback_location: root_path)
   end
 
   private

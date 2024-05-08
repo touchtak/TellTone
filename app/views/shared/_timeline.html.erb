@@ -1,9 +1,9 @@
-<table>
-  <%= link_to post_path(post.post_numbering_id) do %>
-    <tbody class="p-1">
-      <% posts.each do |post| %>
-        <% if post.respond_to?(:creater_id) && post.creater_id.present? %>
-          <%= link_to creater_path(post.creater) do %>
+<table style="width:400px;">
+  <tbody>
+    <% posts.each do |post| %>
+      <% if post.respond_to?(:creater_id) && post.creater_id.present? %>
+        <%= link_to creater_path(post.creater) do %>
+          <tr class="timeline" style="height:fit-content; border:1px solid #aaa">
             <td>
               <!--クリエイターアイコン-->
             </td>
@@ -11,18 +11,41 @@
               <%= post.body %>
               <%= post.image %>
             </td>
-          <% end %>
-        <% else %>
-          <td>
+          </tr>
+        <% end %>
+
+      <% else %>
+        <tr class="timeline">
+          <td style="width:75px; height:75px; padding:5px;">
             <%= link_to viewer_path(post.viewer) do %>
-              <%= image_tag(post.viewer.get_viewer_icon, class: "img-fluid" %>
+              <%= image_tag(post.viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 100%; max-height: 100%; object-fit: contain;") %>
+            <% end %>
+            <%= link_to post_path(post.id) do %>
+              <div></div>
             <% end %>
           </td>
-          <td>
-            <%= post.body %>
+
+          <td style="padding:5px;">
+            <div>
+              <%= link_to viewer_path(post.viewer) do %>
+                <%= post.viewer.name %><small><%= post.user.name %></small>
+              <% end %>
+            </div>
+
+            <%= link_to post_path(post.id) do %>
+              <div>
+                <p class="post-body"><%= post.body %></p>
+              </div>
+            <% end %>
+
+            <div class="float-right pr-1 pb-1">
+              <%= link_to post_path(post.post_numbering_id),  method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
+                <i class="fa-solid fa-trash"></i>
+              <% end %>
+            </div>
           </td>
-        <% end %>
+        </tr>
       <% end %>
-    </tbody>
-  <% end %>
+    <% end %>
+  </tbody>
 </table>

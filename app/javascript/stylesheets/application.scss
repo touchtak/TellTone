@@ -38,6 +38,18 @@
   border-radius: 20px;
 }
 
+// 投稿デザイン
+.timeline{
+  padding: 5px;
+
+  border: 1px solid #aaa;
+}
+
+.post-body, .post-body:hover, .post-body:visited{
+  text-decoration: none;
+  color: black;
+}
+
 // flashメッセージデザイン
 main {
   .main {
