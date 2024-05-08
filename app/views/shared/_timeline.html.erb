@@ -28,7 +28,7 @@
           <td style="padding:5px;">
             <div>
               <%= link_to viewer_path(post.viewer) do %>
-                <%= post.viewer.name %><small><%= post.user.name %></small>
+                <p class="post-body"><%= post.viewer.name %><small class="text-body-secondary"> id: <%= post.user.name %></small></p>
               <% end %>
             </div>
 

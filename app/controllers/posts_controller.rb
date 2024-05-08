@@ -89,7 +89,6 @@ class PostsController < ApplicationController
       flash[:notice] = "投稿が存在しません"
     end
 
-    # flashメッセージ
     if post.destroy
       flash[:notice] = "削除しました"
     else
