@@ -1,4 +1,5 @@
 class ViewersController < ApplicationController
+  before_action :viewer_check, only: [:new, :create]
 
   # ビューワー情報登録ページ
   def new
@@ -42,6 +43,13 @@ class ViewersController < ApplicationController
 
   def viewer_params
     params.require(:viewer).permit(:name, :introduction)
+  end
+
+  # ビューワー作成済みの時、新規作成ページへのアクセスを制限する
+  def viewer_check
+    if current_user.viewer_id.present?
+      redirect_to viewer_path(current_user.viewer_id)
+    end
   end
 
 end

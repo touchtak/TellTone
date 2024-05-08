@@ -1,18 +1,28 @@
-<% posts.each do |post| %>
-  <div>
-    <% if post.respond_to?(:creater_id) && post.creater_id.present? %>
-      <%= link_to creater_path(post.creater) do %>
-        <div>
-          <%= post.body %>
-          <%= post.image %>
-        </div>
+<table>
+  <%= link_to post_path(post.post_numbering_id) do %>
+    <tbody class="p-1">
+      <% posts.each do |post| %>
+        <% if post.respond_to?(:creater_id) && post.creater_id.present? %>
+          <%= link_to creater_path(post.creater) do %>
+            <td>
+              <!--クリエイターアイコン-->
+            </td>
+            <td>
+              <%= post.body %>
+              <%= post.image %>
+            </td>
+          <% end %>
+        <% else %>
+          <td>
+            <%= link_to viewer_path(post.viewer) do %>
+              <%= image_tag(post.viewer.get_viewer_icon, class: "img-fluid" %>
+            <% end %>
+          </td>
+          <td>
+            <%= post.body %>
+          </td>
+        <% end %>
       <% end %>
-    <% else %>
-      <%= link_to viewer_path(post.viewer) do %>
-        <div>
-          <%= post.body %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
+    </tbody>
+  <% end %>
+</table>

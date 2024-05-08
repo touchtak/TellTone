@@ -4,6 +4,8 @@ class PostsController < ApplicationController
   end
 
   def show
+    @viewer_post = ViewerPost.where(post_numbering_id: params[:id])
+    @creater_post = CreaterPost.where(post_numbering_id: params[:id])
   end
 
   # ビューワー投稿作成画面
