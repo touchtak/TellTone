@@ -1,0 +1,123 @@
+@use '~bootstrap/scss/bootstrap';
+
+// テキスト修飾
+.gray-underline, .gray-underline:hover, .gray-underline:visited{
+  text-decoration: underline;
+  text-decoration-color: #bbb;
+}
+
+// 色ボタン
+.pink-btn{
+  color: #ff91bb;
+  border-color:#ff91bb;
+}
+
+.pink-btn:hover{
+  color: #fff;
+  background-color: #ff91bb;
+  border-color:#ff91bb;
+}
+
+.white-btn{
+  color: #fff;
+  border-color:#fff;
+}
+
+.white-btn:hover{
+  color: #555;
+  background-color: #fff;
+  border-color:#fff;
+}
+
+// フォームデザイン
+.designed-forms{
+  width: 350px;
+  background-color: #fff;
+  border: 2px solid #ff91bb;
+  padding: 20px 20px;
+  border-radius: 20px;
+}
+
+// 投稿デザイン
+.timeline{
+  padding: 5px;
+
+  border: 1px solid #aaa;
+}
+
+.post-body, .post-body:hover, .post-body:visited{
+  text-decoration: none;
+  color: black;
+}
+
+// flashメッセージデザイン
+main {
+  .main {
+    .flash-window  {
+      // 窓の形、色、文字の形、色
+      height: 50px;
+      padding: 10px;
+      color: white;
+      background: black;
+      border-radius: 10px;
+
+      // 中のp要素(メッセージ)を上下左右中央揃え
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      // 表示・非表示にかける時間
+      transition: 0.5s 0s ease;
+
+      // 窓の位置調整
+      position: fixed;
+      bottom: 40px;
+      left: 0;
+      right: 0;
+      margin: auto;
+
+      p {
+        color: white;
+
+        span {
+          margin-left: 1vw;
+          color: white;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      // 窓が非表示の時の状態
+      &.hidden {
+        opacity: 0;
+        bottom: -50px;
+      }
+    }
+  }
+}
+
+@media (min-width: PC, タブレット共通) {
+  main {
+    .main {
+      .flash-window  {
+        // 大画面の時は窓の横幅は固定
+        width: 500px;
+      }
+    }
+  }
+}
+@media (min-width: スマホ) {
+  main {
+    .main {
+      .flash-window  {
+        // 小画面の時は画面サイズの90%で可変
+        width: 90%;
+        p {
+          font-size: 4vw;
+        }
+      }
+    }
+  }
+}

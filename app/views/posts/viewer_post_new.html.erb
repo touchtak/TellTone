@@ -1,0 +1,18 @@
+<!--エラーメッセージ-->
+<%= render "devise/shared/error_messages", resource: @viewer_post %>
+
+<%= form_with model: @viewer_post, url: viewer_posts_path, multipart: true do |f| %>
+
+  <div class="row mt-3">
+    <div class="col-lg-1 offset-lg-3">
+      <%= f.label :body %>
+    </div>
+    <div class="col-lg-4 offset-lg-1">
+      <%= f.text_field :body, placeholder: "本文" %>
+    </div>
+  </div>
+
+  <div class="text-center mt-2">
+    <%= f.submit "新規登録", class: "btn btn-primary btn-lg", style: "background-color: green; margin-top: 10px;" %>
+  </div>
+<% end %>
