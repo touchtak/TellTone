@@ -34,15 +34,25 @@ class ViewersController < ApplicationController
   end
 
   def edit
+    @viewer = Viewer.where(user_id: current_user.id).first
   end
 
   def update
+    viewer = Viewer.find(params[:id])
+    if viewer.update(viewer_params)
+      flash[:notice] = "変更しました"
+      redirect_to viewer_path()
+    else
+      flash[:notice] = "変更に失敗しました"
+      @viewer = viewer
+      render :edit
+    end
   end
 
   private
 
   def viewer_params
-    params.require(:viewer).permit(:name, :introduction)
+    params.require(:viewer).permit(:name, :introduction, :viewer_icon)
   end
 
   # ビューワー作成済みの時、新規作成ページへのアクセスを制限する

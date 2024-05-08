@@ -1,3 +1,32 @@
+<!--ビューワー情報-->
+<div class="row p-3 mb-3" style="border-bottom:1px solid #aaa">
+  <div class="col-md-1">
+    <%= image_tag(@viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 100%; max-height: 100%; object-fit: contain;") %>
+  </div>
+
+  <div class="col-md-11">
+    <div class="float-right">
+      <%= link_to edit_viewer_path do %>
+        <div class="btn-group btn-group-md">
+          <div class="btn btn-outline-secondary">
+            <i class="fa-solid fa-wrench fa-lg"></i>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div style="display:flex;">
+      <h4 class="mb-0 mr-2"><%= @viewer.name %></h4>
+      <p><small class="text-body-secondary">id: </small><%= @viewer.user.name %></p>
+    </div>
+
+    <div>
+      <p><%= @viewer.introduction %></p>
+    </div>
+  </div>
+</div>
+
+<!--ビューワー投稿-->
 <div class="row">
 
   <!--サイドバー-->
