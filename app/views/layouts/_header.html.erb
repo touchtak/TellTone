@@ -19,6 +19,9 @@
               <%= link_to '投稿フォーム', new_viewer_posts_path, class: 'btn btn-outline-primary white-btn' %>
             </li>
             <li class="nav-item pl-3">
+              <%= link_to 'ユーザー編集', edit_registration_path(current_user), class: 'btn btn-outline-primary white-btn' %>
+            </li>
+            <li class="nav-item pl-3">
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn btn-outline-primary white-btn' %>
             </li>
 

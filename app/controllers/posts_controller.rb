@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  before_action :viewer_existence_check
+  before_action :creater_existence_check, only: [:creater_post_new, :creater_post_create]
+  before_action :post_current_user_verification, only: [:destroy]
 
   def index
   end
@@ -102,5 +105,38 @@ class PostsController < ApplicationController
 
   def viewer_post_params
     params.require(:viewer_post).permit(:body)
+  end
+
+  # ビューワー未作成の時、ページへのアクセスを制限する
+  def viewer_existence_check
+    unless current_user.viewer_id.present?
+      redirect_to new_viewer_path
+    end
+  end
+
+  # クリエイター未作成の時、ページへのアクセスを制限する
+  def creater_existence_check
+    unless current_user.creater_id.present?
+      redirect_to new_creater_path
+    end
+  end
+
+  # 指定した投稿がログインしているユーザーの物でない場合、削除処理を制限する
+  def post_current_user_verification
+    if CreaterPost.where(post_numbering_id: params[:id]).first.present?
+      post = CreaterPost.where(post_numbering_id: params[:id]).first
+
+    elsif ViewerPost.where(post_numbering_id: params[:id]).first.present?
+      post = ViewerPost.where(post_numbering_id: params[:id]).first
+
+    else
+      flash[:notice] = "投稿が存在しません"
+      redirect_back(fallback_location: root_path)
+    end
+
+    unless post.user_id == current_user.id
+      flash[:notice] = "他のユーザーの投稿は削除できません"
+      redirect_back(fallback_location: root_path)
+    end
   end
 end
