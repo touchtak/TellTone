@@ -1,33 +1,48 @@
 <div class="row">
+  <div class="col-md-3"></div>
 
-  <% if @post.viewer_id.present? %>
-    <div class="timeline">
-      <div style="width:75px; height:75px; padding:5px;">
-        <%= link_to viewer_path(@post.viewer_id) do %>
-          <%= image_tag(@post.viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 100%; max-height: 100%; object-fit: contain;") %>
+  <div class="col-md-9">
+    <table style="width:400px;">
+      <tbody>
+        <% if @post.viewer_id.present? %>
+          <tr class="timeline">
+            <td style="width:75px; height:75px; padding:5px;">
+              <%= link_to viewer_path(@post.viewer_id) do %>
+                <%= image_tag(@post.viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 100%; max-height: 100%; object-fit: contain;") %>
+              <% end %>
+              <%= link_to post_path(@post.id) do %>
+                <div></div>
+              <% end %>
+            </td>
+
+            <td style="padding:5px;">
+              <div>
+                <%= link_to viewer_path(@post.viewer_id) do %>
+                  <p class="post-body"><%= @post.viewer.name %><small class="text-body-secondary"> id: <%= @post.user.name %></small></p>
+                <% end %>
+              </div>
+
+              <%= link_to post_path(@post.id) do %>
+                <div>
+                  <p class="post-body"><%= @post.body %></p>
+                </div>
+              <% end %>
+
+              <% if @post.user_id == current_user.id %>
+                <div class="float-right pr-1 pb-1">
+                  <%= link_to post_path(@post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
+                    <i class="fa-solid fa-trash"></i>
+                  <% end %>
+                </div>
+              <% end %>
+            </td>
+          </tr>
+
+        <!--クリエイター投稿詳細-->
+        <% else %>
+
         <% end %>
-        <%= link_to post_path(@post.id) do %>
-          <div></div>
-        <% end %>
-      </div>
-
-      <div style="padding:5px;">
-        <div>
-          <%= link_to viewer_path(@post.viewer_id) do %>
-            <p class="post-body"><%= @post.viewer.name %><small class="text-body-secondary"> id: <%= @post.user.name %></small></p>
-          <% end %>
-        </div>
-
-        <%= link_to post_path(@post.id) do %>
-          <div>
-            <p class="post-body"><%= @post.body %></p>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-  <!--クリエイター投稿詳細-->
-  <% else %>
-
-  <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

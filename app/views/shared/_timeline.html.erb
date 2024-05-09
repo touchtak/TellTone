@@ -38,11 +38,13 @@
               </div>
             <% end %>
 
-            <div class="float-right pr-1 pb-1">
-              <%= link_to post_path(post.post_numbering_id),  method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
-                <i class="fa-solid fa-trash"></i>
-              <% end %>
-            </div>
+            <% if post.user_id == current_user.id %>
+              <div class="float-right pr-1 pb-1">
+                <%= link_to post_path(post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
+                  <i class="fa-solid fa-trash"></i>
+                <% end %>
+              </div>
+            <% end %>
           </td>
         </tr>
       <% end %>

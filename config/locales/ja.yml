@@ -1,0 +1,19 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        name: ユーザー名
+      viewer:
+        name: 表示名
+        inrtoduction: 自己紹介
+        viewer_icon: アイコン
+      creater:
+        name: クリエイター名
+        introduction: 自己紹介
+        creater_icon: アイコン
+      viewer_post:
+        body: 本文
+        post_image: 画像ファイル
+      creater_post:
+        body: 本文
+        post_image: 画像ファイル

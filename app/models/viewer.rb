@@ -4,6 +4,8 @@ class Viewer < ApplicationRecord
 
   belongs_to :user
 
+  validates :name, presence: true
+
   def get_viewer_icon
     if viewer_icon.attached?
       viewer_icon

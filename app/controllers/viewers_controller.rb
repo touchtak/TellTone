@@ -1,5 +1,6 @@
 class ViewersController < ApplicationController
-  before_action :viewer_check, only: [:new, :create]
+  before_action :viewer_existence_check, only: [:new, :create]
+  before_action :viewer_current_user_verification, only: [:edit, :update]
 
   # ビューワー情報登録ページ
   def new
@@ -56,9 +57,19 @@ class ViewersController < ApplicationController
   end
 
   # ビューワー作成済みの時、新規作成ページへのアクセスを制限する
-  def viewer_check
+  def viewer_existence_check
     if current_user.viewer_id.present?
       redirect_to viewer_path(current_user.viewer_id)
+    end
+  end
+
+  # 指定したビューワーidがログインしているユーザーの物でない場合、編集ページのアクセスを制限する
+  def viewer_current_user_verification
+    viewer = Viewer.find(params[:id])
+    unless viewer.user_id == current_user.id
+      @viewer = Viewer.find(current_user.viewer_id)
+      @posts = ViewerPost.where(viewer_id: @viewer.id)
+      render :show
     end
   end
 
