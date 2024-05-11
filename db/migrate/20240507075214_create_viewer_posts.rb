@@ -5,7 +5,7 @@ class CreateViewerPosts < ActiveRecord::Migration[6.1]
       t.integer :viewer_id
       t.integer :tag_id
       t.integer :post_numbering_id
-      t.text :body, null: false, default: ""
+      t.text :body, null: false
 
       t.timestamps
     end

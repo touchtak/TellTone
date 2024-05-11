@@ -56,13 +56,6 @@ class ViewersController < ApplicationController
     params.require(:viewer).permit(:name, :introduction, :viewer_icon)
   end
 
-  # ビューワー作成済みの時、新規作成ページへのアクセスを制限する
-  def viewer_existence_check
-    if current_user.viewer_id.present?
-      redirect_to viewer_path(current_user.viewer_id)
-    end
-  end
-
   # 指定したビューワーidがログインしているユーザーの物でない場合、編集ページのアクセスを制限する
   def viewer_current_user_verification
     viewer = Viewer.find(params[:id])
