@@ -1,5 +1,6 @@
 class ViewersController < ApplicationController
-  before_action :viewer_existence_check, only: [:new, :create]
+  before_action :current_viewer_existence_check, only: [:new, :create]
+  before_action :viewer_existence_check, only: [:show]
   before_action :viewer_current_user_verification, only: [:edit, :update]
 
   # ビューワー情報登録ページ
