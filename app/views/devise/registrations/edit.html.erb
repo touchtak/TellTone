@@ -50,12 +50,13 @@
       <!--余白-->
       <div class="py-3" style="border-bottom:1px solid #aaa;"></div>
 
-      <!--退会リンク-->
-      <div class="d-flex justify-content-center pt-2">
-        <div class="btn-group btn-group-md">
-          <%= button_to "退会", registration_path(resource_name), data: { confirm: "本当に退会しますか？", turbo_confirm: "本当に退会しますか？" }, method: :delete, class: "btn btn-outline-danger" %>
-        </div>
+
+    <!--退会リンク-->
+    <div class="d-flex justify-content-center pt-2">
+      <div class="btn-group btn-group-md">
+        <%= link_to "退会", registration_path(resource_name), data: { confirm: "本当に退会しますか？", turbo_confirm: "本当に退会しますか？" }, method: :delete, class: "btn btn-outline-danger" %>
       </div>
+    </div>
     <% end %>
   </div>
 </div>
