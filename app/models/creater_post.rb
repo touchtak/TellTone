@@ -1,2 +1,0 @@
-class CreaterPost < ApplicationRecord
-end

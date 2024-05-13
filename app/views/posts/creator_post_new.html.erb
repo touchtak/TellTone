@@ -6,19 +6,10 @@
 </div>
 
 <!--エラーメッセージ-->
-<%= render "devise/shared/error_messages", resource: @viewer_post %>
+<%= render "devise/shared/error_messages", resource: @creator_post %>
 
 <!--投稿フォーム-->
-<%= form_with model: @viewer_post, url: viewer_posts_path, multipart: true do |f| %>
-
-  <div class="row mt-3">
-    <div class="col-md-1 offset-md-3">
-      <%= f.label :body %>
-    </div>
-    <div class="col-md-4 offset-md-1">
-      <%= f.text_area :body, placeholder: "感想をつぶやきましょう！", style: "height: 200px; width: 300px;" %>
-    </div>
-  </div>
+<%= form_with model: @creator_post, url: viewer_posts_path, multipart: true do |f| %>
 
   <div class="row mb-3 mt-3">
     <div class="col-md-2 offset-md-3">
@@ -26,6 +17,15 @@
     </div>
     <div class="col-md-7">
       <%= f.file_field :post_image %>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-md-1 offset-md-3">
+      <%= f.label :body %>
+    </div>
+    <div class="col-md-4 offset-md-1">
+      <%= f.text_area :body, placeholder: "投稿文", style: "height: 200px; width: 300px;" %>
     </div>
   </div>
 

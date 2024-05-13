@@ -5,10 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :viewer, dependent: :destroy
-  has_one :creater, dependent: :destroy
+  has_one :creator, dependent: :destroy
 
   has_many :viewer_posts, dependent: :destroy
-  has_many :creater_posts, dependent: :destroy
+  has_many :creator_posts, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 end

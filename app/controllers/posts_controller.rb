@@ -8,8 +8,8 @@ class PostsController < ApplicationController
 
   # 投稿詳細
   def show
-    if CreaterPost.where(post_numbering_id: params[:id]).first.present?
-      @post = CreaterPost.where(post_numbering_id: params[:id]).first
+    if CreatorPost.where(post_numbering_id: params[:id]).first.present?
+      @post = CreatorPost.where(post_numbering_id: params[:id]).first
 
     elsif ViewerPost.where(post_numbering_id: params[:id]).first.present?
       @post = ViewerPost.where(post_numbering_id: params[:id]).first
@@ -51,39 +51,39 @@ class PostsController < ApplicationController
   end
 
   # クリエイター投稿作成処理
-  def creater_post_new
-    @creater_post = CreaterPost.new
+  def creator_post_new
+    @creator_post = CreatorPost.new
 
     # 投稿後に遷移する為、元のページのセッションを保存
     session[:previous_url] = request.referer
   end
 
   # クリエイター投稿作成処理
-  def creater_post_create
-    creater_post = CreaterPost.new(creater_post_params)
-    creater_post.user_id = current_user.id
-    creater_post.viewer_id = current_user.creater.id
+  def creator_post_create
+    creator_post = CreatorPost.new(creater_post_params)
+    creator_post.user_id = current_user.id
+    creator_post.viewer_id = current_user.creater.id
 
     # 投稿管理id作成
     post_numbering = PostNumbering.new
     post_numbering.save
 
-    creater_post.post_numbering_id = post_numbering.id
+    creator_post.post_numbering_id = post_numbering.id
 
-    if creater_post.save
+    if creator_post.save
       flash[:notice] = "投稿しました"
       redirect_to session[:previous_url]
     else
       post_numbering.delete
-      @creater_post = CreaterPost.new
+      @creator_post = CreatorPost.new
       render :creater_post_new
     end
   end
 
   # 投稿削除処理
   def destroy
-    if CreaterPost.where(post_numbering_id: params[:id]).first.present?
-      post = CreaterPost.where(post_numbering_id: params[:id]).first
+    if CreatorPost.where(post_numbering_id: params[:id]).first.present?
+      post = CreatorPost.where(post_numbering_id: params[:id]).first
 
     elsif ViewerPost.where(post_numbering_id: params[:id]).first.present?
       post = ViewerPost.where(post_numbering_id: params[:id]).first
@@ -104,7 +104,7 @@ class PostsController < ApplicationController
   private
 
   def viewer_post_params
-    params.require(:viewer_post).permit(:body)
+    params.require(:viewer_post).permit(:body, :post_image)
   end
 
   # ビューワー未作成の時、ページへのアクセスを制限する
@@ -123,8 +123,8 @@ class PostsController < ApplicationController
 
   # 指定した投稿がログインしているユーザーの物でない場合、削除処理を制限する
   def post_current_user_verification
-    if CreaterPost.where(post_numbering_id: params[:id]).first.present?
-      post = CreaterPost.where(post_numbering_id: params[:id]).first
+    if CreatorPost.where(post_numbering_id: params[:id]).first.present?
+      post = CreatorPost.where(post_numbering_id: params[:id]).first
 
     elsif ViewerPost.where(post_numbering_id: params[:id]).first.present?
       post = ViewerPost.where(post_numbering_id: params[:id]).first

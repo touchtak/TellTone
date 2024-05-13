@@ -1,0 +1,32 @@
+<!--ページ名-->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h2>コメントする</h2>
+  </div>
+</div>
+
+<!--エラーメッセージ-->
+<%= render "devise/shared/error_messages", resource: @comment %>
+
+<!--入力フォーム-->
+<div class="row d-flex justify-content-center">
+  <div class="designed-forms d-flex justify-content-center">
+    <%= form_with model: @comment, url: comments_path, multipart: true do |f|  %>
+      <div class="field mb-3">
+        <%= f.label '本文' %><br />
+        <%= f.text_area :body, autocomplete: "introduction" %>
+      </div>
+      
+      <div class="field mb-3">
+        <%= f.label :image, "画像を添付する" %>
+        <%= f.file_field :image %>
+      </div>
+
+      <div class="actions d-flex justify-content-center">
+        <div class="btn-group btn-group-md">
+        <%= f.submit "完了", class: "btn btn-outline-success", style: "width:100%;" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

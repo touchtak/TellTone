@@ -1,3 +1,0 @@
-class Creater < ApplicationRecord
-
-end
