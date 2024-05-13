@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :posts, only: [:show, :index, :new, :destroy]
   get '/viewer_post/new' => 'posts#viewer_post_new', as: "new_viewer_posts"
   post '/viewer_post' => 'posts#viewer_post_create', as: "viewer_posts"
+  get '/creator_post/new' => 'posts#creator_post_new', as: "new_creator_posts"
+  post '/creator_post' => 'posts#creator_post_create', as: "creator_posts"
 
   resources :comments, only: [:new, :create]
 

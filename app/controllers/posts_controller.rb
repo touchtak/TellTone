@@ -60,9 +60,9 @@ class PostsController < ApplicationController
 
   # クリエイター投稿作成処理
   def creator_post_create
-    creator_post = CreatorPost.new(creater_post_params)
+    creator_post = CreatorPost.new(creator_post_params)
     creator_post.user_id = current_user.id
-    creator_post.viewer_id = current_user.creater.id
+    creator_post.creator_id = current_user.creator.id
 
     # 投稿管理id作成
     post_numbering = PostNumbering.new
@@ -105,6 +105,10 @@ class PostsController < ApplicationController
 
   def viewer_post_params
     params.require(:viewer_post).permit(:body, :post_image)
+  end
+
+  def creator_post_params
+    params.require(:creator_post).permit(:body, :post_image)
   end
 
   # ビューワー未作成の時、ページへのアクセスを制限する

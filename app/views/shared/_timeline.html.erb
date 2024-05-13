@@ -2,7 +2,7 @@
   <% posts.each do |post| %>
 
     <!--クリエイター投稿の場合-->
-    <% if post.respond_to?(:creater_id) && post.creater_id.present? %>
+    <% if post.respond_to?(:creator_id) && post.creator_id.present? %>
       <div class="timeline" style="height:fit-content;">
         <div class="d-inline-flex" style="height:75px; padding:5px;">
           <%= link_to creator_path(post.creator) do %>
