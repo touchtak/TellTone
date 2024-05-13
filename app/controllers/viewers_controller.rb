@@ -29,7 +29,7 @@ class ViewersController < ApplicationController
   # 各ビューワー詳細ページ
   def show
     @viewer = Viewer.find(params[:id])
-    @posts = ViewerPost.where(viewer_id: @viewer.id)
+    @posts = ViewerPost.where(viewer_id: @viewer.id).sort_by(&:created_at).reverse
   end
 
   def index

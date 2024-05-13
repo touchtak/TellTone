@@ -13,15 +13,22 @@
 
             <!--ビューワー登録後に表示-->
             <% if current_user.viewer_id.present? %>
+              <li class="nav-item">
+                <%= link_to  posts_path, class: 'btn btn-outline-primary white-btn' do %>
+                  <i class="fa-solid fa-house"></i>
+                <% end %>
+              </li>
+
               <% if current_user.creator_id.present? %>
-                <li class="nav-item">
+                <li class="nav-item pl-3">
                   <%= link_to 'クリエイターページ', creator_path(current_user.creator_id), class: 'btn btn-outline-primary white-btn' %>
                 </li>
               <% else %>
-                <li class="nav-item">
+                <li class="nav-item pl-3">
                   <%= link_to '作品投稿を始める', new_creator_path, class: 'btn btn-outline-primary white-btn' %>
                 </li>
               <% end %>
+
               <li class="nav-item pl-3">
                 <%= link_to 'マイページ', viewer_path(current_user.viewer_id), class: 'btn btn-outline-primary white-btn' %>
               </li>

@@ -4,6 +4,9 @@ class PostsController < ApplicationController
   before_action :post_current_user_verification, only: [:destroy]
 
   def index
+    current_viewer_post = ViewerPost.where(viewer_id: current_user.viewer.id)
+    current_creator_post = CreatorPost.where(creator_id: current_user.creator.id)
+    @posts = (current_viewer_post + current_creator_post).sort_by(&:created_at).reverse
   end
 
   # 投稿詳細
