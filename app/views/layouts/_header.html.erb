@@ -11,9 +11,11 @@
           <!--ログイン時-->
           <% if user_signed_in? %>
 
+            <%= render 'searches/search' %>
+
             <!--ビューワー登録後に表示-->
             <% if current_user.viewer_id.present? %>
-              <li class="nav-item">
+              <li class="nav-item pl-3">
                 <%= link_to  posts_path, class: 'btn btn-outline-primary white-btn' do %>
                   <i class="fa-solid fa-house"></i>
                 <% end %>

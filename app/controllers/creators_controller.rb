@@ -66,8 +66,7 @@ class CreatorsController < ApplicationController
 
   # 閲覧しようとしたクリエイターidが存在しない場合、詳細画面へのアクセスを制限する
   def creator_existence_check
-    creator = Creator.find(params[:id])
-    unless creator.present?
+    unless Creator.exists?(params[:id])
       redirect_to creator_path(current_user.creator_id)
     end
   end

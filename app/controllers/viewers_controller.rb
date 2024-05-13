@@ -66,8 +66,7 @@ class ViewersController < ApplicationController
 
   # 閲覧しようとしたビューワーidが存在しない場合、詳細画面へのアクセスを制限する
   def viewer_existence_check
-    viewer = Viewer.find(params[:id])
-    unless viewer.present?
+    unless Viewer.exists?(params[:id])
       redirect_to viewer_path(current_user.viewer_id)
     end
   end

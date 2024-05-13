@@ -12,4 +12,9 @@ class CreatorPost < ApplicationRecord
 
   validates :body, presence: true
 
+  def self.looks(search, word)
+    creator_post = CreatorPost.where("body LIKE?","%#{word}%")
+    @post = creator_post.select { |creator_post| creator_post.post_image.attached? }
+  end
+
 end

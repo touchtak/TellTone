@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(version: 2024_05_13_043258) do
   end
 
   create_table "post_numberings", force: :cascade do |t|
+    t.integer "viewer_post_id"
+    t.integer "creator_post_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

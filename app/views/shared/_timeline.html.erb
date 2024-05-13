@@ -1,8 +1,14 @@
 <div style="width:400px;">
   <% posts.each do |post| %>
 
+    <!--該当する投稿がない場合-->
+    <% if post.respond_to?(:creator_id) && post.creator_id.blank? %>
+    <div></div>
+    <% elsif post.respond_to?(:viewer_id) && post.viewer_id.blank? %>
+    <div></div>
+
     <!--クリエイター投稿の場合-->
-    <% if post.respond_to?(:creator_id) && post.creator_id.present? %>
+    <% elsif post.respond_to?(:creator_id) && post.creator_id.present? %>
       <div class="timeline" style="height:fit-content;">
         <div class="d-inline-flex" style="height:75px; padding:5px;">
           <%= link_to creator_path(post.creator) do %>
@@ -19,7 +25,7 @@
         </div>
 
         <div style="padding:5px; margin-left:55px; height:fit-content;">
-          <%= link_to post_path(post.id) do %>
+          <%= link_to post_path(post.post_numbering_id) do %>
             <div>
               <p class="post-body"><%= post.body %></p>
             </div>
@@ -30,6 +36,9 @@
 
           <% if post.user_id == current_user.id %>
             <div class="d-flex justify-content-end mt-2">
+              <%= link_to new_comment_path(post.post_numbering_id) do %>
+                <i class="fa-regular fa-comment mr-3"></i>
+              <% end %>
               <%= link_to post_path(post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
                 <i class="fa-solid fa-trash"></i>
               <% end %>
@@ -56,7 +65,7 @@
         </div>
 
         <div style="padding:5px; margin-left:55px; height:fit-content;">
-          <%= link_to post_path(post.id) do %>
+          <%= link_to post_path(post.post_numbering_id) do %>
             <div>
               <p class="post-body"><%= post.body %></p>
             </div>
@@ -67,6 +76,9 @@
 
           <% if post.user_id == current_user.id %>
             <div class="d-flex justify-content-end mt-2">
+              <%= link_to new_comment_path(post.post_numbering_id) do %>
+                <i class="fa-regular fa-comment mr-3"></i>
+              <% end %>
               <%= link_to post_path(post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
                 <i class="fa-solid fa-trash"></i>
               <% end %>
@@ -74,6 +86,7 @@
           <% end %>
         </div>
       </div>
+
     <% end %>
   <% end %>
 </div>

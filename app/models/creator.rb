@@ -14,4 +14,8 @@ class Creator < ApplicationRecord
     end
   end
 
+  def self.looks(search, word)
+    @creator = Creator.where("name LIKE?","%#{word}%")
+  end
+
 end

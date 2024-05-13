@@ -11,14 +11,17 @@ class PostsController < ApplicationController
 
   # 投稿詳細
   def show
-    if CreatorPost.where(post_numbering_id: params[:id]).first.present?
-      @post = CreatorPost.where(post_numbering_id: params[:id]).first
+    if CreatorPost.find_by(post_numbering_id: params[:id]).present?
+      @post = CreatorPost.find_by(post_numbering_id: params[:id])
+      @comments = Comment.where(creator_post_id: @post.id)
 
-    elsif ViewerPost.where(post_numbering_id: params[:id]).first.present?
-      @post = ViewerPost.where(post_numbering_id: params[:id]).first
+    elsif ViewerPost.find_by(post_numbering_id: params[:id]).present?
+      @post = ViewerPost.find_by(post_numbering_id: params[:id])
+      @comments = Comment.where(viewer_post_id: @post.id)
 
     else
       flash[:notice] = "投稿が存在しません"
+      redirect_back(fallback_location: root_path)
     end
   end
 
@@ -44,11 +47,13 @@ class PostsController < ApplicationController
     viewer_post.post_numbering_id = post_numbering.id
 
     if viewer_post.save
+      post_numbering.update(viewer_post_id: viewer_post.id)
       flash[:notice] = "投稿しました"
       redirect_to session[:previous_url]
     else
       post_numbering.delete
       @viewer_post = ViewerPost.new
+      flash[:notice] = "投稿できませんでした"
       render :viewer_post_new
     end
   end
@@ -74,22 +79,24 @@ class PostsController < ApplicationController
     creator_post.post_numbering_id = post_numbering.id
 
     if creator_post.save
+      post_numbering.update(creator_post_id: creator_post.id)
       flash[:notice] = "投稿しました"
       redirect_to session[:previous_url]
     else
       post_numbering.delete
       @creator_post = CreatorPost.new
+      flash[:notice] = "投稿できませんでした"
       render :creater_post_new
     end
   end
 
   # 投稿削除処理
   def destroy
-    if CreatorPost.where(post_numbering_id: params[:id]).first.present?
-      post = CreatorPost.where(post_numbering_id: params[:id]).first
+    if CreatorPost.find_by(post_numbering_id: params[:id]).present?
+      post = CreatorPost.find_by(post_numbering_id: params[:id])
 
-    elsif ViewerPost.where(post_numbering_id: params[:id]).first.present?
-      post = ViewerPost.where(post_numbering_id: params[:id]).first
+    elsif ViewerPost.find_by(post_numbering_id: params[:id]).present?
+      post = ViewerPost.find_by(post_numbering_id: params[:id])
 
     else
       flash[:notice] = "投稿が存在しません"
@@ -130,11 +137,11 @@ class PostsController < ApplicationController
 
   # 指定した投稿がログインしているユーザーの物でない場合、削除処理を制限する
   def post_current_user_verification
-    if CreatorPost.where(post_numbering_id: params[:id]).first.present?
-      post = CreatorPost.where(post_numbering_id: params[:id]).first
+    if CreatorPost.find_by(post_numbering_id: params[:id]).present?
+      post = CreatorPost.find_by(post_numbering_id: params[:id])
 
-    elsif ViewerPost.where(post_numbering_id: params[:id]).first.present?
-      post = ViewerPost.where(post_numbering_id: params[:id]).first
+    elsif ViewerPost.find_by(post_numbering_id: params[:id]).present?
+      post = ViewerPost.find_by(post_numbering_id: params[:id])
 
     else
       flash[:notice] = "投稿が存在しません"
