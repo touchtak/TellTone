@@ -2,7 +2,7 @@
   <div class="col-md-3"></div>
 
   <div class="col-md-9">
-    <div style="width:400px;">
+    <div class="posts-show">
       <% if @post.respond_to?(:creator_id) && @post.creator_id.present? %>
         <div class="timeline" style="height:fit-content;">
           <div class="d-inline-flex" style="height:75px; padding:5px;">
@@ -20,7 +20,7 @@
           </div>
 
           <div style="padding:5px; margin-left:55px; height:fit-content;">
-            <%= link_to post_path(@post.id) do %>
+            <%= link_to post_path(@post.post_numbering_id) do %>
               <div>
                 <p class="post-body"><%= @post.body %></p>
               </div>
@@ -29,16 +29,16 @@
               <% end %>
             <% end %>
 
-            <% if @post.user_id == current_user.id %>
-              <div class="d-flex justify-content-end ">
-                <%= link_to new_comment_path(@post.post_numbering_id) do %>
-                  <i class="fa-regular fa-comment mr-3"></i>
-                <% end %>
+            <div class="d-flex justify-content-end ">
+              <%= link_to new_comment_path(@post.post_numbering_id) do %>
+                <i class="fa-regular fa-comment mr-3"></i>
+              <% end %>
+              <% if @post.user_id == current_user.id %>
                 <%= link_to post_path(@post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
                   <i class="fa-solid fa-trash"></i>
                 <% end %>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
 
@@ -60,7 +60,7 @@
           </div>
 
           <div style="padding:5px; margin-left:55px; height:fit-content;">
-            <%= link_to post_path(@post.id) do %>
+            <%= link_to post_path(@post.post_numbering_id) do %>
               <div>
                 <p class="post-body"><%= @post.body %></p>
               </div>
@@ -69,16 +69,16 @@
               <% end %>
             <% end %>
 
-            <% if @post.user_id == current_user.id %>
-              <div class="d-flex justify-content-end mt-2">
-                <%= link_to new_comment_path(@post.post_numbering_id) do %>
-                  <i class="fa-regular fa-comment mr-3"></i>
-                <% end %>
+            <div class="d-flex justify-content-end mt-2">
+              <%= link_to new_comment_path(@post.post_numbering_id) do %>
+                <i class="fa-regular fa-comment mr-3"></i>
+              <% end %>
+              <% if @post.user_id == current_user.id %>
                 <%= link_to post_path(@post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
                   <i class="fa-solid fa-trash"></i>
                 <% end %>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
       <% end %>
@@ -86,10 +86,14 @@
   </div>
 </div>
 
+<div class="row my-4"></div>
+
 <div class="row">
   <div class="col-md-3"></div>
 
+  <!--コメント一覧-->
   <div class="col-md-9">
+    <p>コメント (<%= @comments.count %>)</p>
     <div style="width:400px;">
       <% @comments.each do |comment| %>
         <div class="timeline" style="height:fit-content;">

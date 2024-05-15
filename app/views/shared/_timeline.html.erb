@@ -34,16 +34,16 @@
             <% end %>
           <% end %>
 
-          <% if post.user_id == current_user.id %>
-            <div class="d-flex justify-content-end mt-2">
-              <%= link_to new_comment_path(post.post_numbering_id) do %>
-                <i class="fa-regular fa-comment mr-3"></i>
-              <% end %>
+          <div class="d-flex justify-content-end mt-2">
+            <%= link_to new_comment_path(post.post_numbering_id) do %>
+              <i class="fa-regular fa-comment mr-3"></i>
+            <% end %>
+            <% if post.user_id == current_user.id %>
               <%= link_to post_path(post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
                 <i class="fa-solid fa-trash"></i>
               <% end %>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
 
@@ -74,16 +74,16 @@
             <% end %>
           <% end %>
 
-          <% if post.user_id == current_user.id %>
-            <div class="d-flex justify-content-end mt-2">
-              <%= link_to new_comment_path(post.post_numbering_id) do %>
-                <i class="fa-regular fa-comment mr-3"></i>
-              <% end %>
+          <div class="d-flex justify-content-end mt-2">
+            <%= link_to new_comment_path(post.post_numbering_id) do %>
+              <i class="fa-regular fa-comment mr-3"></i>
+            <% end %>
+            <% if post.user_id == current_user.id %>
               <%= link_to post_path(post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
                 <i class="fa-solid fa-trash"></i>
               <% end %>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
 
