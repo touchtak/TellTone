@@ -14,8 +14,8 @@
     <%= form_with model: @viewer, url: viewer_path(@viewer), method: :patch, multipart: true do |f|  %>
 
       <div class="field mb-3">
-        <%= f.label :image, "アイコン" %>
-        <%= f.file_field :image %>
+        <%= f.label :viewer_icon, "アイコン" %>
+        <%= f.file_field :viewer_icon %>
       </div>
 
       <div class="field mb-3">

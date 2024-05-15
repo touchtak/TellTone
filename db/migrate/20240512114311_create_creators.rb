@@ -1,6 +1,6 @@
-class CreateCreaters < ActiveRecord::Migration[6.1]
+class CreateCreators < ActiveRecord::Migration[6.1]
   def change
-    create_table :creaters do |t|
+    create_table :creators do |t|
       t.integer :user_id
       t.text :introduction
       t.string :name

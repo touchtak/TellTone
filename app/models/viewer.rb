@@ -13,4 +13,9 @@ class Viewer < ApplicationRecord
       'no_image.jpg'
     end
   end
+  
+  def self.looks(search, word)
+    @viewer = Viewer.where("name LIKE?","%#{word}%")
+  end
+  
 end

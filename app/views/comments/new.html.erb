@@ -1,0 +1,82 @@
+<!--ページ名-->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h2>コメントする</h2>
+  </div>
+</div>
+
+<!--エラーメッセージ-->
+<%= render "devise/shared/error_messages", resource: @comment %>
+<!--コメント先の投稿-->
+<div class="row d-flex justify-content-center mb-4">
+  <div style="width:400px;">
+    <% if @post.respond_to?(:creator_id) && @post.creator_id.present? %>
+      <div class="timeline" style="height:fit-content;">
+        <div class="d-inline-flex" style="height:75px; padding:5px;">
+            <%= image_tag(@post.creator.get_creator_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
+          <div class="ml-2">
+              <p class="post-body">
+                <span style="font-size:20px;"><%= @post.creator.name %></span>
+                <small class="text-body-secondary">id: <%= @post.user.name %></small>
+              </p>
+          </div>
+        </div>
+
+        <div style="padding:5px; margin-left:55px; height:fit-content;">
+            <div>
+              <p class="post-body"><%= @post.body %></p>
+            </div>
+            <% if @post.post_image.attached? %>
+              <%= image_tag(@post.post_image, class: "img-fluid", style: "max-width: 90px; max-height: 120px; object-fit: contain;") %>
+            <% end %>
+        </div>
+      </div>
+
+    <!--ビューワー投稿の場合-->
+    <% else %>
+      <div class="timeline" style="height:fit-content;">
+        <div class="d-inline-flex" style="height:75px; padding:5px;">
+            <%= image_tag(@post.viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
+          <div class="ml-2">
+              <p class="post-body">
+                <span style="font-size:20px;"><%= @post.viewer.name %></span>
+                <small class="text-body-secondary">id: <%= @post.user.name %></small>
+              </p>
+          </div>
+        </div>
+
+        <div style="padding:5px; margin-left:55px; height:fit-content;">
+            <div>
+              <p class="post-body"><%= @post.body %></p>
+            </div>
+            <% if @post.post_image.attached? %>
+              <%= image_tag(@post.post_image, class: "img-fluid", style: "max-width: 90px; max-height: 120px; object-fit: contain;") %>
+            <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!--入力フォーム-->
+<div class="row d-flex justify-content-center">
+  <div class="designed-forms d-flex justify-content-center">
+    <%= form_with model: @comment, url: comment_path(@post.post_numbering_id), multipart: true do |f|  %>
+      <div class="field mb-3">
+        <%= f.label '本文' %><br />
+        <%= f.text_area :comment, autocomplete: "introduction" %>
+      </div>
+
+      <div class="field mb-3">
+        <%= f.label :post_image, "画像を添付する" %>
+        <%= f.file_field :post_image %>
+      </div>
+
+      <div class="actions d-flex justify-content-center">
+        <div class="btn-group btn-group-md">
+        <%= f.submit "完了", class: "btn btn-outline-success", style: "width:100%;" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

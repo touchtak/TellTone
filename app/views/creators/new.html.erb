@@ -1,21 +1,21 @@
 <!--ページ名-->
 <div class="row">
   <div class="col-md-12 text-center">
-    <h2>ビューワー情報を登録しましょう！</h2>
+    <h2>クリエイター情報を登録しましょう！</h2>
   </div>
 </div>
 
 <!--エラーメッセージ-->
-<%= render "devise/shared/error_messages", resource: @viewer %>
+<%= render "devise/shared/error_messages", resource: @creator %>
 
 <!--入力フォーム-->
 <div class="row d-flex justify-content-center">
   <div class="designed-forms d-flex justify-content-center">
-    <%= form_with model: @viewer, url: viewers_path, multipart: true do |f|  %>
+    <%= form_with model: @creator, url: creators_path, multipart: true do |f|  %>
 
       <div class="field mb-3">
-        <%= f.label :viewer_icon, "アイコン" %>
-        <%= f.file_field :viewer_icon %>
+        <%= f.label :creator_icon, "アイコン" %>
+        <%= f.file_field :creator_icon %>
       </div>
 
       <div class="field mb-3">

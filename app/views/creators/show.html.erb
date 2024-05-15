@@ -1,0 +1,49 @@
+<!--クリエイター情報-->
+<div class="row p-3 mb-3" style="border-bottom:1px solid #aaa">
+  <div class="col-md-1">
+    <%= image_tag(@creator.get_creator_icon, class: "img-fluid", style: "max-width: 100%; max-height: 100%; object-fit: contain;") %>
+  </div>
+
+  <div class="col-md-11">
+    <% if @creator.user_id == current_user.id %>
+      <div class="float-right">
+        <%= link_to new_creator_posts_path do %>
+          <div class="btn-group btn-group-md">
+            <div class="btn btn-outline-secondary">
+              <i class="fa-solid fa-plus fa-lg"></i>
+            </div>
+          </div>
+        <% end %>
+        <%= link_to edit_creator_path do %>
+          <div class="btn-group btn-group-md ml-3">
+            <div class="btn btn-outline-secondary">
+              <i class="fa-solid fa-wrench fa-lg"></i>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div style="display:flex;">
+      <h4 class="mb-0 mr-2"><%= @creator.name %></h4>
+      <p><small class="text-body-secondary">id: </small><%= @creator.user.name %></p>
+    </div>
+
+    <div>
+      <p><%= @creator.introduction %></p>
+    </div>
+  </div>
+</div>
+
+<!--クリエイター投稿-->
+<div class="row">
+
+  <!--サイドバー-->
+  <div class="col-md-3"></div>
+
+  <!--タイムライン-->
+  <div class="col-md-9">
+    <%= render 'shared/timeline', posts: @posts %>
+  </div>
+
+</div>
