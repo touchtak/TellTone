@@ -40,10 +40,10 @@ class CommentsController < ApplicationController
       render :new
     end
   end
-  
+
   def destroy
-    comment = Comment.id
-    
+    comment = Comment.find(params[:id])
+
     if comment.destroy
       flash[:notice] = "削除しました"
     else
