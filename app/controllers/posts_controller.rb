@@ -3,10 +3,19 @@ class PostsController < ApplicationController
   before_action :creater_existence_check, only: [:creater_post_new, :creater_post_create]
   before_action :post_current_user_verification, only: [:destroy]
 
+  # タイムライン
   def index
-    current_viewer_post = ViewerPost.where(viewer_id: current_user.viewer.id)
-    current_creator_post = CreatorPost.where(creator_id: current_user.creator.id)
-    @posts = (current_viewer_post + current_creator_post).sort_by(&:created_at).reverse
+
+    # 自分の投稿
+    current_viewer_posts = ViewerPost.where(viewer_id: current_user.viewer.id)
+    if CreatorPost.find_by(user_id: current_user.id).present?
+      current_creator_posts = CreatorPost.where(creator_id: current_user.creator.id)
+      current_user_posts = (current_viewer_posts + current_creator_posts)
+    else
+      current_user_posts = current_viewer_posts
+    end
+
+    @posts = (current_user_posts).sort_by(&:created_at).reverse
   end
 
   # 投稿詳細
