@@ -60,6 +60,7 @@ class ViewersController < ApplicationController
   # ビューワー作成済みの時、新規作成ページへのアクセスを制限する
   def current_viewer_existence_check
     if current_user.viewer_id.present?
+      flash[:notice] = "ビューワー情報は登録済みです"
       redirect_to viewer_path(current_user.viewer_id)
     end
   end
@@ -67,6 +68,7 @@ class ViewersController < ApplicationController
   # 閲覧しようとしたビューワーidが存在しない場合、詳細画面へのアクセスを制限する
   def viewer_existence_check
     unless Viewer.exists?(params[:id])
+      flash[:notice] = "ビューワーが存在しません"
       redirect_to viewer_path(current_user.viewer_id)
     end
   end
@@ -75,9 +77,8 @@ class ViewersController < ApplicationController
   def viewer_current_user_verification
     viewer = Viewer.find(params[:id])
     unless viewer.user_id == current_user.id
-      @viewer = Viewer.find(current_user.viewer_id)
-      @posts = ViewerPost.where(viewer_id: @viewer.id)
-      render :show
+      flash[:notice] = "他のビューワーの情報は編集できません"
+      redirect_to viewer_path(current_user.viewer_id)
     end
   end
 

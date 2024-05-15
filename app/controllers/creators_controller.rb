@@ -60,6 +60,7 @@ class CreatorsController < ApplicationController
   # クリエイター作成済みの時、新規作成ページへのアクセスを制限する
   def current_creator_existence_check
     if current_user.creator_id.present?
+      flash[:notice] = "クリエイター情報は登録済みです"
       redirect_to creator_path(current_user.creator_id)
     end
   end
@@ -67,6 +68,7 @@ class CreatorsController < ApplicationController
   # 閲覧しようとしたクリエイターidが存在しない場合、詳細画面へのアクセスを制限する
   def creator_existence_check
     unless Creator.exists?(params[:id])
+      flash[:notice] = "クリエイターが存在しません"
       redirect_to creator_path(current_user.creator_id)
     end
   end
@@ -75,9 +77,8 @@ class CreatorsController < ApplicationController
   def creator_current_user_verification
     creator = Creator.find(params[:id])
     unless creator.user_id == current_user.id
-      @creator = Creator.find(current_user.creator_id)
-      @posts = CreatorPost.where(creator_id: @creator.id)
-      render :show
+      flash[:notice] = "他のクリエイターの情報は編集できません"
+      redirect_to creator_path(current_user.creator_id)
     end
   end
 
