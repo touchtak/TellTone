@@ -36,15 +36,7 @@
 
           <div class="d-flex justify-content-end mt-2">
             <!--いいねボタン-->
-            <% if post.liked?(current_user) %>
-                <%= link_to like_destroy_path(post.post_numbering_id), method: :delete do %>
-                    <span class="mr-3" style="color:red;">❤︎</span>
-                <% end %>
-            <% else %>
-                <%= link_to like_path(post.post_numbering_id), method: :post do %>
-                    <span class="mr-3">❤︎</span>
-                <% end %>
-            <% end %>
+            <%= render "likes/like", post: post %>
 
             <!--コメントボタン-->
             <%= link_to new_comment_path(post.post_numbering_id) do %>
@@ -90,15 +82,7 @@
 
           <div class="d-flex justify-content-end mt-2">
             <!--いいねボタン-->
-            <% if post.liked?(current_user) %>
-                <%= link_to like_destroy_path(post.post_numbering_id), method: :delete do %>
-                    <span class="mr-3" style="color:red;">❤︎</span>
-                <% end %>
-            <% else %>
-                <%= link_to like_path(post.post_numbering_id), method: :post do %>
-                    <span class="mr-3">❤︎</span>
-                <% end %>
-            <% end %>
+            <%= render "likes/like", post: post %>
 
             <!--コメントボタン-->
             <%= link_to new_comment_path(post.post_numbering_id) do %>
