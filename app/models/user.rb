@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   has_many :viewer_posts, dependent: :destroy
   has_many :creator_posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
+
 end
