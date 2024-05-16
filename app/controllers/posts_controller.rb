@@ -157,9 +157,10 @@ class PostsController < ApplicationController
       redirect_back(fallback_location: root_path)
     end
 
-    unless post.user.id == current_user.id
+    unless post.user_id == current_user.id
       flash[:notice] = "他のユーザーの投稿は削除できません"
       redirect_back(fallback_location: root_path)
     end
   end
+
 end

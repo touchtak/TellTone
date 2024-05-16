@@ -1,0 +1,13 @@
+<% unless post.user == current_user %>
+  <div id="like_btn_<%= post.id %>">
+    <% if post.liked?(current_user) %>
+      <%= link_to like_destroy_path(post.post_numbering_id), method: :delete, remote: true do %>
+        <span class="mr-3" style="color:red;">❤︎</span>
+      <% end %>
+    <% else %>
+      <%= link_to like_path(post.post_numbering_id), method: :post, remote: true do %>
+        <span class="mr-3">❤︎</span>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get '/posts/:id/comment/new' => 'comments#new', as: "new_comment"
   post '/posts/:id/comment' => 'comments#create', as: "comment"
   delete '/comment/:id/delete' => 'comments#destroy', as: "comment_destroy"
+  post '/posts/:id/like' => 'likes#create', as: "like"
+  delete '/posts/:id/like/delete' => 'likes#destroy', as: "like_destroy"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
