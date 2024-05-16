@@ -70,9 +70,15 @@
             <% end %>
 
             <div class="d-flex justify-content-end mt-2">
+              <!--いいねボタン-->
+              <%= render "likes/like", post: @post %>
+
+              <!--コメントボタン-->
               <%= link_to new_comment_path(@post.post_numbering_id) do %>
                 <i class="fa-regular fa-comment mr-3"></i>
               <% end %>
+
+              <!--削除ボタン-->
               <% if @post.user_id == current_user.id %>
                 <%= link_to post_path(@post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
                   <i class="fa-solid fa-trash"></i>
