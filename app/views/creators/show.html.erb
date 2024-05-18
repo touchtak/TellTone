@@ -24,11 +24,9 @@
       </div>
     <% else %>
       <div class="float-right">
-        <% if current_user.viewer.creator_following?(@creator) %>
-          <%= link_to "フォロー中", creator_unfollow_path(@creator.id), method: :delete %>
-        <% else %>
-          <%= link_to "フォロー", creator_follow_path(@creator.id), method: :post %>
-        <% end %>
+        <div id="creator-follow-contents-<%= @creator.id %>">
+          <%= render partial:"relationships/creator_follow_btn", locals: {creator: @creator} %>
+        </div>
       </div>
     <% end %>
 
@@ -41,7 +39,9 @@
       <p><%= @creator.introduction %></p>
     </div>
 
-    <div>フォロワー数: <%= @creator.creator_followers.count %></div>
+    <div id="creator-follower-count-<%= @creator.id %>">
+      <%= render partial:"relationships/creator_follower_count", locals: {creator: @creator} %>
+    </div>
   </div>
 </div>
 

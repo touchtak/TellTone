@@ -2,11 +2,11 @@ class RelationshipsController < ApplicationController
 
   # フォロー時の処理
   def creator_relation_create
+    @creator = Creator.find(params[:id])
     creator_relationship = CreatorRelationship.new
     creator_relationship.follower_id = current_user.viewer.id
-    creator_relationship.followed_id = Creator.find(params[:id]).id
+    creator_relationship.followed_id = @creator.id
     creator_relationship.save
-    redirect_to request.referer
   end
 
   def viewer_relation_create
@@ -24,7 +24,9 @@ class RelationshipsController < ApplicationController
   def creator_relation_destroy
     creator_relationship = CreatorRelationship.find_by(follower_id: current_user.viewer.id, followed_id: params[:id])
     creator_relationship.destroy
-    redirect_to request.referer
+
+    # 非同期通信用
+    @creator = Creator.find(params[:id])
   end
 
   def viewer_relation_destroy
