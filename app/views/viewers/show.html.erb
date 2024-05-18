@@ -5,6 +5,7 @@
   </div>
 
   <div class="col-md-11">
+    <!--自分のビューワーページであれば、編集ページへのリンクを表示-->
     <% if @viewer.user_id == current_user.id %>
       <div class="float-right">
         <%= link_to edit_viewer_path do %>
@@ -15,13 +16,13 @@
           </div>
         <% end %>
       </div>
+
+    <!--自分以外のビューワーページであれば、フォローボタンを表示-->
     <% else %>
       <div class="float-right">
-        <% if current_user.viewer.viewer_following?(@viewer) %>
-          <%= link_to "フォロー中", viewer_unfollow_path(@viewer.id), method: :delete %>
-        <% else %>
-          <%= link_to "フォロー", viewer_follow_path(@viewer.id), method: :post %>
-        <% end %>
+        <div id="viewer-follow-contents-<%= @viewer.id %>">
+          <%= render partial:"relationships/viewer_follow_btn", locals: { viewer: @viewer } %>
+        </div>
       </div>
     <% end %>
 
@@ -34,8 +35,10 @@
       <p><%= @viewer.introduction %></p>
     </div>
 
-    <div>フォロー数: <%= @followings.count %></div>
-    <div>フォロワー数: <%= @viewer.viewer_followers.count %></div>
+    <!--フォロー・フォロワーのカウント表示-->
+    <div id="viewer-follow-count-<%= @viewer.id %>">
+      <%= render partial:"relationships/viewer_follow_count", locals: {viewer: @viewer, followings: @followings} %>
+    </div>
   </div>
 </div>
 

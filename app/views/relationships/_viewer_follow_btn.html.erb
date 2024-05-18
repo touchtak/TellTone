@@ -1,0 +1,17 @@
+<% if current_user.viewer.viewer_following?(viewer) %>
+  <%= link_to viewer_unfollow_path(viewer.id), method: :delete, remote: true do %>
+    <div class="btn-group btn-group-md">
+      <div class="btn btn-outline-secondary">
+        <p style="margin:auto;">フォロー中</p>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <%= link_to viewer_follow_path(viewer.id), method: :post, remote: true do %>
+    <div class="btn-group btn-group-md">
+      <div class="btn btn-secondary">
+        <p style="margin:auto;">フォローする</p>
+      </div>
+    </div>
+  <% end %>
+<% end %>
