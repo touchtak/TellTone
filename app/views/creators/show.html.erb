@@ -22,6 +22,14 @@
           </div>
         <% end %>
       </div>
+    <% else %>
+      <div class="float-right">
+        <% if current_user.viewer.creator_following?(@creator) %>
+          <%= link_to "フォロー中", creator_unfollow_path(@creator.id), method: :delete %>
+        <% else %>
+          <%= link_to "フォロー", creator_follow_path(@creator.id), method: :post %>
+        <% end %>
+      </div>
     <% end %>
 
     <div style="display:flex;">
@@ -32,6 +40,8 @@
     <div>
       <p><%= @creator.introduction %></p>
     </div>
+
+    <div>フォロワー数: <%= @creator.creator_followers.count %></div>
   </div>
 </div>
 
