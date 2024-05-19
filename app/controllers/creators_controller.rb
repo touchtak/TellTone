@@ -29,7 +29,8 @@ class CreatorsController < ApplicationController
   # 各クリエイター詳細ページ
   def show
     @creator = Creator.find(params[:id])
-    @posts = CreatorPost.where(creator_id: @creator.id).sort_by(&:created_at).reverse
+    @post_data = CreatorPost.where(creator_id: @creator.id).sort_by(&:created_at).reverse
+    @posts = Kaminari.paginate_array(@post_data).page(params[:page]).per(10)
   end
 
   def index

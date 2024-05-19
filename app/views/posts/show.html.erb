@@ -99,8 +99,8 @@
 
   <!--コメント一覧-->
   <div class="col-md-9">
-    <p>コメント (<%= @comments.count %>)</p>
-    <div style="width:400px;">
+    <p>コメント (<%= @comment_data.count %>)</p>
+    <div class="scroll-list jscroll" style="width:400px;">
       <% @comments.each do |comment| %>
         <div class="timeline" style="height:fit-content;">
           <div class="d-inline-flex" style="height:75px; padding:5px;">
@@ -137,6 +137,7 @@
           </div>
         </div>
       <% end %>
+    <%= paginate @comments %>
     </div>
   </div>
 </div>

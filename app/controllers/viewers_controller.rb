@@ -29,7 +29,9 @@ class ViewersController < ApplicationController
   # 各ビューワー詳細ページ
   def show
     @viewer = Viewer.find(params[:id])
-    @posts = ViewerPost.where(viewer_id: @viewer.id).sort_by(&:created_at).reverse
+    @followings = (@viewer.viewer_followings + @viewer.creator_followings)
+    @post_data = ViewerPost.where(viewer_id: @viewer.id).sort_by(&:created_at).reverse
+    @posts = Kaminari.paginate_array(@post_data).page(params[:page]).per(10)
   end
 
   def index

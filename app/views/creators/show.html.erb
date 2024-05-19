@@ -22,6 +22,12 @@
           </div>
         <% end %>
       </div>
+    <% else %>
+      <div class="float-right">
+        <div id="creator-follow-contents-<%= @creator.id %>">
+          <%= render partial:"relationships/creator_follow_btn", locals: {creator: @creator} %>
+        </div>
+      </div>
     <% end %>
 
     <div style="display:flex;">
@@ -31,6 +37,10 @@
 
     <div>
       <p><%= @creator.introduction %></p>
+    </div>
+
+    <div id="creator-follower-count-<%= @creator.id %>">
+      <%= render partial:"relationships/creator_follower_count", locals: {creator: @creator} %>
     </div>
   </div>
 </div>

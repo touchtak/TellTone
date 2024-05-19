@@ -59,6 +59,7 @@ gem 'devise'
 gem 'rails-i18n'
 
 gem 'jquery-rails'
+gem 'kaminari'
 
 gem 'dotenv-rails'
 group :production do

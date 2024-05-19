@@ -1,0 +1,10 @@
+<div>
+  <%= link_to followings_path(viewer.id) do %>
+    フォロー数: <%= followings.count %>
+  <% end %>
+</div>
+<div>
+  <%= link_to viewer_followers_path(viewer.id) do %>
+    フォロワー数: <%= viewer.viewer_followers.count %>
+  <% end %>
+</div>

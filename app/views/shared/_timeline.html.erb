@@ -1,4 +1,4 @@
-<div style="width:400px;">
+<div class="scroll-list jscroll" style="width:400px;">
   <% posts.each do |post| %>
 
     <!--該当する投稿がない場合-->
@@ -101,4 +101,6 @@
 
     <% end %>
   <% end %>
+
+  <%= paginate posts %>
 </div>
