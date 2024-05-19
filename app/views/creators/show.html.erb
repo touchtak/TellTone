@@ -5,10 +5,21 @@
   </div>
 
   <div class="col-md-11">
-    <% if @creator.user_id == current_user.id %>
-      <div class="float-right">
+
+    <div class="d-flex float-right">
+      <%= link_to requests_path do %>
+        <div class="btn-group btn-group-md">
+          <div class="btn btn-outline-secondary">
+            リクエスト
+          </div>
+        </div>
+      <% end %>
+
+      <!--自分のクリエイターページであれば、編集ページへのリンクを表示-->
+      <% if @creator.user_id == current_user.id %>
+
         <%= link_to new_creator_posts_path do %>
-          <div class="btn-group btn-group-md">
+          <div class="btn-group btn-group-md ml-3">
             <div class="btn btn-outline-secondary">
               <i class="fa-solid fa-plus fa-lg"></i>
             </div>
@@ -21,14 +32,14 @@
             </div>
           </div>
         <% end %>
-      </div>
-    <% else %>
-      <div class="float-right">
-        <div id="creator-follow-contents-<%= @creator.id %>">
+
+      <!--自分以外のクリエイターページであれば、フォローボタンを表示-->
+      <% else %>
+        <div class="ml-3" id="creator-follow-contents-<%= @creator.id %>">
           <%= render partial:"relationships/creator_follow_btn", locals: {creator: @creator} %>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
 
     <div style="display:flex;">
       <h4 class="mb-0 mr-2"><%= @creator.name %></h4>

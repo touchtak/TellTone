@@ -1,6 +1,8 @@
 class Viewer < ApplicationRecord
 
   has_one_attached :viewer_icon
+  
+  has_many :requests
 
   # <フォロー機能>
   # クリエイターリレーション

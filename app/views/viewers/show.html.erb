@@ -5,26 +5,25 @@
   </div>
 
   <div class="col-md-11">
+    
+    <div class="float-right">
     <!--自分のビューワーページであれば、編集ページへのリンクを表示-->
     <% if @viewer.user_id == current_user.id %>
-      <div class="float-right">
-        <%= link_to edit_viewer_path do %>
-          <div class="btn-group btn-group-md">
-            <div class="btn btn-outline-secondary">
-              <i class="fa-solid fa-wrench fa-lg"></i>
-            </div>
+      <%= link_to edit_viewer_path do %>
+        <div class="btn-group btn-group-md">
+          <div class="btn btn-outline-secondary">
+            <i class="fa-solid fa-wrench fa-lg"></i>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
 
-    <!--自分以外のビューワーページであれば、フォローボタンを表示-->
-    <% else %>
-      <div class="float-right">
+      <!--自分以外のビューワーページであれば、フォローボタンを表示-->
+      <% else %>
         <div id="viewer-follow-contents-<%= @viewer.id %>">
           <%= render partial:"relationships/viewer_follow_btn", locals: { viewer: @viewer } %>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
 
     <div style="display:flex;">
       <h4 class="mb-0 mr-2"><%= @viewer.name %></h4>
