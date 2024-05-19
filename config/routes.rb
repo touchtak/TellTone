@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   post 'creator/:id/follow' => 'relationships#creator_relation_create', as: "creator_follow"
   delete 'viewer/:id/unfollow' => 'relationships#viewer_relation_destroy', as: "viewer_unfollow"
   delete 'creator/:id/unfollow' => 'relationships#creator_relation_destroy', as: "creator_unfollow"
+  get 'viewer/:id/followings' => 'relationships#followings', as: "followings"
+  get 'viewer/:id/followers' => 'relationships#viewer_followers', as: "viewer_followers"
+  get 'creator/:id/followers' => 'relationships#creator_followers', as: "creator_followers"
 
   # 検索機能
   get 'search' => 'searches#search'

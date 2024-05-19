@@ -1,2 +1,37 @@
-<h1>Relationships#followings</h1>
-<p>Find me in app/views/relationships/followings.html.erb</p>
+<h2>フォロー一覧</h2>
+
+<table class="table table-hover table-inverse">
+    <tbody>
+      <tr class="scroll-list jscroll">
+        <% @followings.each do |following| %>
+          <!--クリエイターの場合-->
+          <% if following.is_a?(Creator) %>
+            <td>
+              <%= link_to creator_path(following.id) do %>
+                <%= image_tag(following.get_creator_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to creator_path(following.id) do %>
+                <%= following.name %>
+              <% end %>
+            </td>
+
+          <!--ビューワーの場合-->
+          <% else %>
+          <td>
+              <%= link_to viewer_path(following.id) do %>
+                <%= image_tag(following.get_viewer_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to viewer_path(following.id) do %>
+                <%= following.name %>
+              <% end %>
+            </td>
+
+          <% end %>
+        <% end %>
+      </tr>
+    </tbody>
+</table>

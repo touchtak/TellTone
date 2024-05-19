@@ -1,1 +1,5 @@
-<div>フォロワー数: <%= @creator.creator_followers.count %></div>
+<div>
+  <%= link_to creator_followers_path(creator.id) do %>
+    フォロワー数: <%= @creator.creator_followers.count %>
+  <% end %>
+</div>

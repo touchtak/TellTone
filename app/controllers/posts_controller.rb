@@ -5,7 +5,6 @@ class PostsController < ApplicationController
 
   # タイムライン
   def index
-
     # 自分の投稿
     current_viewer_posts = ViewerPost.where(viewer_id: current_user.viewer.id)
     if CreatorPost.find_by(user_id: current_user.id).present?
@@ -15,7 +14,11 @@ class PostsController < ApplicationController
       current_user_posts = current_viewer_posts
     end
 
-    @post_data = (current_user_posts).sort_by(&:created_at).reverse
+    # フォローしているビューワー・クリエイターの投稿
+    following_creator_posts = CreatorPost.where(creator_id: current_user.viewer.creator_followings)
+    following_viewer_posts = ViewerPost.where(viewer_id: current_user.viewer.viewer_followings)
+
+    @post_data = (current_user_posts + following_creator_posts + following_viewer_posts).sort_by(&:created_at).reverse
     @posts = Kaminari.paginate_array(@post_data).page(params[:page]).per(10)
   end
 

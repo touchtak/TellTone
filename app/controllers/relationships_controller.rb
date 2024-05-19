@@ -40,9 +40,18 @@ class RelationshipsController < ApplicationController
 
   # 一覧表示
   def followings
+    viewer = Viewer.find(params[:id])
+    @followings = (viewer.viewer_followings + viewer.creator_followings)
   end
 
-  def followers
+  def viewer_followers
+    viewer = Viewer.find(params[:id])
+    @followers = viewer.viewer_followers
+  end
+
+  def creator_followers
+    creator = Creator.find(params[:id])
+    @followers = creator.creator_followers
   end
 
 end
