@@ -64,7 +64,7 @@
     <%= form_with model: @comment, url: comment_path(@post.post_numbering_id), multipart: true do |f|  %>
       <div class="field mb-3">
         <%= f.label '本文' %><br />
-        <%= f.text_area :comment, autocomplete: "introduction" %>
+        <%= f.text_area :comment, autofocus: true, autocomplete: "introduction" %>
       </div>
 
       <div class="field mb-3">

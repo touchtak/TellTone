@@ -5,8 +5,8 @@
 
 //= stub flash_window
 //= require_tree .
-
 //= require jquery
+//= require jquery.jscroll.min.js
 //= require rails-ujs
 
 import Rails from "@rails/ujs"
@@ -22,3 +22,16 @@ import "../stylesheets/application";
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+// 無限スクロール用
+/* global $ */
+$(window).on('scroll', function() {
+  var scrollHeight = $(document).height();
+  var scrollPosition = $(window).height() + $(window).scrollTop();
+  if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
+    $('.jscroll').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a'
+    });
+  }
+});

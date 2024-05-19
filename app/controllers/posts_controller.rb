@@ -15,23 +15,26 @@ class PostsController < ApplicationController
       current_user_posts = current_viewer_posts
     end
 
-    @posts = (current_user_posts).sort_by(&:created_at).reverse
+    @post_data = (current_user_posts).sort_by(&:created_at).reverse
+    @posts = Kaminari.paginate_array(@post_data).page(params[:page]).per(10)
   end
 
   # 投稿詳細
   def show
     if CreatorPost.find_by(post_numbering_id: params[:id]).present?
       @post = CreatorPost.find_by(post_numbering_id: params[:id])
-      @comments = Comment.where(creator_post_id: @post.id)
+      @comment_data = Comment.where(creator_post_id: @post.id).sort_by(&:created_at).reverse
 
     elsif ViewerPost.find_by(post_numbering_id: params[:id]).present?
       @post = ViewerPost.find_by(post_numbering_id: params[:id])
-      @comments = Comment.where(viewer_post_id: @post.id)
+      @comment_data = Comment.where(viewer_post_id: @post.id).sort_by(&:created_at).reverse
 
     else
       flash[:notice] = "投稿が存在しません"
       redirect_back(fallback_location: root_path)
     end
+
+    @comments = Kaminari.paginate_array(@comment_data).page(params[:page]).per(10)
   end
 
   # ビューワー投稿作成画面

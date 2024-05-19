@@ -127,3 +127,11 @@ main {
     }
   }
 }
+
+// 無限スクロール用
+nav.pagination {
+  display: none;
+}
+.scroll-list {
+  padding: 0;
+}

@@ -30,7 +30,8 @@ class ViewersController < ApplicationController
   def show
     @viewer = Viewer.find(params[:id])
     @followings = (@viewer.viewer_followings + @viewer.creator_followings)
-    @posts = ViewerPost.where(viewer_id: @viewer.id).sort_by(&:created_at).reverse
+    @post_data = ViewerPost.where(viewer_id: @viewer.id).sort_by(&:created_at).reverse
+    @posts = Kaminari.paginate_array(@post_data).page(params[:page]).per(10)
   end
 
   def index
