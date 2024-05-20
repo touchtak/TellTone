@@ -36,3 +36,13 @@ $(window).on('scroll', function() {
     });
   }
 });
+
+// ページ最上部移動ボタン用
+$(function() {
+  $('#back a').on('click',function(event){
+    $('body, html').animate({
+      scrollTop:0
+    }, 800);
+    event.preventDefault();
+  });
+});

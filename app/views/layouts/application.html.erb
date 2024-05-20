@@ -17,6 +17,7 @@
 
   <body>
     <%= render 'layouts/header' %>
+
     <main class="min-vh-100" style="background-color:#e7f8f7;">
       <div class="container py-4">
 
@@ -24,9 +25,21 @@
         <%= render partial: 'layouts/flash_window' %>
 
         <%= yield %>
+
+        <!--ページ最上部移動ボタン-->
+      <span id="back">
+        <div class="btn btn-group">
+          <a class="btn btn-secondary" href="#">
+            <i class="fa-solid fa-arrow-up"></i>
+          </a>
+        </div>
+      </span>
+
       </div>
     </main>
+
     <%= render 'layouts/footer' %>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jscroll/2.4.1/jquery.jscroll.min.js"></script>
   </body>
 </html>

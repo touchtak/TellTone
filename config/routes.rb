@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   delete '/comment/:id/delete' => 'comments#destroy', as: "comment_destroy"
 
   # いいね機能
+  get '/viewer/:id/like_posts' => 'likes#like_posts', as: "like_posts"
+  get '/viewer/:id/like_creator_posts' => 'likes#like_creator_posts', as: "like_creator_posts"
   post '/posts/:id/like' => 'likes#create', as: "like"
   delete '/posts/:id/like/delete' => 'likes#destroy', as: "like_destroy"
 
