@@ -2,6 +2,8 @@ class Creator < ApplicationRecord
 
   has_one_attached :creator_icon
 
+  has_many :requests
+
   # フォロー機能
   # クリエイターリレーション
   has_many :reverse_of_creator_relationships, class_name: "CreatorRelationship", foreign_key: "followed_id", dependent: :destroy

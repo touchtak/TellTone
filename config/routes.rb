@@ -39,5 +39,13 @@ Rails.application.routes.draw do
   post '/posts/:id/like' => 'likes#create', as: "like"
   delete '/posts/:id/like/delete' => 'likes#destroy', as: "like_destroy"
 
+  # リクエスト機能
+  get '/creator/:id/requests' => 'requests#index', as: "requests"
+  get '/creator/:id/requests/new' => 'requests#new', as: "new_request"
+  post '/creator/:id/request' => 'requests#create', as: "request"
+  get '/creator/:id/requests/edit' => 'requests#edit', as: "edit_request"
+  patch '/creator/:id/request' => 'requests#update', as: "update_request"
+  delete '/creator/:id/request' => 'requests#destroy', as: "destroy_request"
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
