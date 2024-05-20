@@ -33,6 +33,11 @@
               <%= image_tag(post.post_image, class: "img-fluid", style: "max-width: 300px; max-height: 400px; object-fit: contain;") %>
             <% end %>
           <% end %>
+          <% if post.audio.present? %>
+            <audio src= "<%= "#{post.audio}" %>" controls="">
+              <a src="<%= "#{post.audio}" %>">ダウンロード</a>
+            </audio>
+          <% end %>
 
           <div class="d-flex justify-content-end mt-2">
             <!--いいねボタン-->

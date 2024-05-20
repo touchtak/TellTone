@@ -8,6 +8,7 @@
 //= require jquery
 //= require jquery.jscroll.min.js
 //= require rails-ujs
+//= require audiojs
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"

@@ -6,7 +6,7 @@ class CreateCreatorPosts < ActiveRecord::Migration[6.1]
       t.integer :tag_id
       t.integer :emotion_id
       t.integer :post_numbering_id
-      t.text :audio
+      t.string :audio
       t.text :body, null: false
 
       t.timestamps

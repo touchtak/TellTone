@@ -133,7 +133,7 @@ class PostsController < ApplicationController
   end
 
   def creator_post_params
-    params.require(:creator_post).permit(:body, :post_image)
+    params.require(:creator_post).permit(:body, :post_image, :audio)
   end
 
   # ビューワー未作成の時、ページへのアクセスを制限する
