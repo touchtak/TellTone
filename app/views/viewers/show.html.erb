@@ -11,7 +11,7 @@
     <% if @viewer.user_id == current_user.id %>
       <%= link_to edit_viewer_path do %>
         <div class="btn-group btn-group-md">
-          <div class="btn btn-outline-secondary">
+          <div class="btn btn-secondary">
             <i class="fa-solid fa-wrench fa-lg"></i>
           </div>
         </div>
@@ -73,7 +73,7 @@
 
   <!--タイムライン-->
   <div class="col-md-9 post-page">
-      <%= render 'shared/timeline', posts: @posts %>
+    <%= render 'shared/timeline', posts: @posts %>
   </div>
 
 </div>

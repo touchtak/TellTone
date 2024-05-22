@@ -1,11 +1,14 @@
 class RequestsController < ApplicationController
 
   def index
-    @requests = Request.find_by(creator_id: params[:id])
+    requests = Request.where(creator_id: params[:id]).sort_by(&:created_at).reverse
+    @requests = Kaminari.paginate_array(requests).page(params[:page]).per(10)
+    @creator = Creator.find(params[:id])
   end
 
   def new
     @request = Request.new
+    @creator = Creator.find(params[:id])
 
     # 投稿後に遷移する為、元のページのセッションを保存
     session[:previous_url] = request.referer
@@ -13,17 +16,16 @@ class RequestsController < ApplicationController
 
   def create
     request = Request.new(request_params)
-    request.creator_id = Creator(params[:id])
+    request.creator_id = Creator.find(params[:id]).id
     request.viewer_id = current_user.viewer.id
 
     if request.save
       flash[:notice] = "リクエストを投稿しました"
+      redirect_to requests_path(request.creator_id)
     else
       flash[:notice] = "投稿に失敗しました"
       redirect_back(fallback_location: root_path)
     end
-
-    redirect_to session[:previous_url]
   end
 
   def edit
@@ -60,7 +62,7 @@ class RequestsController < ApplicationController
   private
 
   def request_params
-    params.require(:request).permit(:body, :request_image)
+    params.require(:request).permit(:body)
   end
 
 end
