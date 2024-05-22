@@ -135,3 +135,11 @@ nav.pagination {
 .scroll-list {
   padding: 0;
 }
+
+// ページ最上部移動ボタン
+#back {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}
+

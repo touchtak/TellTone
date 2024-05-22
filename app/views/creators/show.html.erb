@@ -7,27 +7,27 @@
   <div class="col-md-11">
 
     <div class="d-flex float-right">
-      <%= link_to requests_path do %>
+      <%= link_to requests_path(@creator) do %>
         <div class="btn-group btn-group-md">
-          <div class="btn btn-outline-secondary">
+          <div class="btn btn-secondary">
             リクエスト
           </div>
         </div>
       <% end %>
 
-      <!--自分のクリエイターページであれば、編集ページへのリンクを表示-->
+      <!--自分のクリエイターページであれば、投稿・編集ページへのリンクを表示-->
       <% if @creator.user_id == current_user.id %>
 
         <%= link_to new_creator_posts_path do %>
           <div class="btn-group btn-group-md ml-3">
-            <div class="btn btn-outline-secondary">
+            <div class="btn btn-secondary">
               <i class="fa-solid fa-plus fa-lg"></i>
             </div>
           </div>
         <% end %>
         <%= link_to edit_creator_path do %>
           <div class="btn-group btn-group-md ml-3">
-            <div class="btn btn-outline-secondary">
+            <div class="btn btn-secondary">
               <i class="fa-solid fa-wrench fa-lg"></i>
             </div>
           </div>

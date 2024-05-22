@@ -8,6 +8,7 @@
 //= require jquery
 //= require jquery.jscroll.min.js
 //= require rails-ujs
+//= require audiojs
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
@@ -34,4 +35,14 @@ $(window).on('scroll', function() {
       nextSelector: 'span.next:last a'
     });
   }
+});
+
+// ページ最上部移動ボタン用
+$(function() {
+  $('#back a').on('click',function(event){
+    $('body, html').animate({
+      scrollTop:0
+    }, 800);
+    event.preventDefault();
+  });
 });

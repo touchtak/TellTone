@@ -1,6 +1,8 @@
 class CreatorPost < ApplicationRecord
 
+  # 画像・音声ファイル
   has_one_attached :post_image
+  mount_uploader :audio, AudiofileUploader
 
   belongs_to :user
   belongs_to :creator
