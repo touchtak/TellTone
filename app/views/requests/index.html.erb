@@ -16,10 +16,12 @@
   <div class="col-md-7">
     <h2><%= @creator.name %> さんへのリクエスト</h2>
 
-    <div class="scroll-list jscroll" style="width:400px;">
+    <div class="scroll-list jscroll w-50">
       <!--投稿がない場合-->
       <% unless @requests.present? %>
-        <h4 class="no-post">投稿がありません</h4>
+        <div class="text-center mt-5">
+          <h4 class="no-post">投稿がありません</h4>
+        </div>
       <% end %>
 
       <% @requests.each do |request| %>

@@ -43,6 +43,7 @@ class PostsController < ApplicationController
   # ビューワー投稿作成画面
   def viewer_post_new
     @viewer_post = ViewerPost.new
+    @tag_list = @viewer_post.post_tags.pluck(:name).join(',')
 
     # 投稿後に遷移する為、元のページのセッションを保存
     session[:previous_url] = request.referer
@@ -61,8 +62,10 @@ class PostsController < ApplicationController
 
     viewer_post.post_numbering_id = post_numbering.id
 
+    tag_list = params[:viewer_post][:name].split(',')
     if viewer_post.save
       post_numbering.update(viewer_post_id: viewer_post.id)
+      viewer_post.save_post_tags(tag_list)
       flash[:notice] = "投稿しました"
       redirect_to session[:previous_url]
     else
@@ -76,6 +79,7 @@ class PostsController < ApplicationController
   # クリエイター投稿作成処理
   def creator_post_new
     @creator_post = CreatorPost.new
+    @tag_list = @creator_post.post_tags.pluck(:name).join(',')
 
     # 投稿後に遷移する為、元のページのセッションを保存
     session[:previous_url] = request.referer
@@ -93,8 +97,10 @@ class PostsController < ApplicationController
 
     creator_post.post_numbering_id = post_numbering.id
 
+    tag_list = params[:creator_post][:name].split(',')
     if creator_post.save
       post_numbering.update(creator_post_id: creator_post.id)
+      creator_post.save_post_tags(tag_list)
       flash[:notice] = "投稿しました"
       redirect_to session[:previous_url]
     else
@@ -133,7 +139,7 @@ class PostsController < ApplicationController
   end
 
   def creator_post_params
-    params.require(:creator_post).permit(:body, :post_image, :audio)
+    params.require(:creator_post).permit(:body, :post_image, :audio, :emotion_id)
   end
 
   # ビューワー未作成の時、ページへのアクセスを制限する

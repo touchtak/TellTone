@@ -29,6 +29,15 @@
     </div>
   </div>
 
+  <div class="row mb-3 mt-3">
+    <div class="col-md-2 offset-md-3">
+      <%= f.label :name, "タグ(,で区切ると複数タグ登録できます)" %>
+    </div>
+    <div class="col-md-7">
+      <%= f.text_field :name,value: @tag_list, class: 'form-control' %>
+    </div>
+  </div>
+
   <div class="text-center mt-5">
     <%= f.submit "投稿", class: "btn btn-outline-success btn-lg" %>
   </div>
