@@ -39,10 +39,19 @@ $(window).on('scroll', function() {
 
 // ページ最上部移動ボタン用
 $(function() {
-  $('#back a').on('click',function(event){
+  $('#back').on('click', function(event){
     $('body, html').animate({
       scrollTop:0
     }, 800);
+    event.preventDefault();
+  });
+});
+
+// ハンバーガーメニュー用
+$(function() {
+  $('.menu-trigger').on('click', function(event) {
+    $(this).toggleClass('active');
+    $('#sp-menu').fadeToggle();
     event.preventDefault();
   });
 });

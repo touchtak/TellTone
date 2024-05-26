@@ -19,13 +19,18 @@ class CreatorPost < ApplicationRecord
 
   # 検索用
   def self.looks(search, word)
-    creator_post = CreatorPost.where("body LIKE?","%#{word}%")
-    @post = creator_post.select { |creator_post| creator_post.post_image.attached? }
+    creator_posts = CreatorPost.where("body LIKE?","%#{word}%")
+    @post = creator_posts.select { |creator_post| creator_post.post_image.attached? || creator_post.audio.present? }
   end
 
   # 投稿をいいねしているか判定する
   def liked?(user)
      likes.where(user_id: user.id).exists?
+  end
+
+  # いいね数カウント
+  def like_count(creator_post)
+      likes.where(creator_post_id: creator_post.id).count
   end
 
   # タグ付け用

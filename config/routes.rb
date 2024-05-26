@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
   # 投稿関連
   resources :posts, only: [:show, :index, :new, :destroy]
+  get 'creators/:id/works' => 'posts#work_index', as: "work_index"
+
   get '/viewer_post/new' => 'posts#viewer_post_new', as: "new_viewer_posts"
   post '/viewer_post' => 'posts#viewer_post_create', as: "viewer_posts"
   get '/creator_post/new' => 'posts#creator_post_new', as: "new_creator_posts"

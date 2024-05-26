@@ -9,7 +9,7 @@
 <%= render "devise/shared/error_messages", resource: @creator_post %>
 
 <!--投稿フォーム-->
-<%= form_with model: @creator_post, url: creator_posts_path, multipart: true do |f| %>
+<%= form_with model: @creator_post, url: creator_posts_path, data: { confirm: "クリエイター投稿しますか？", turbo_confirm: "クリエイター投稿しますか？" }, multipart: true do |f| %>
 
   <div class="row mb-3 mt-3">
     <div class="col-md-2 offset-md-3">

@@ -22,6 +22,16 @@ class PostsController < ApplicationController
     @posts = Kaminari.paginate_array(@post_data).page(params[:page]).per(10)
   end
 
+  # 投稿作品一覧
+  def work_index
+    @creator = Creator.find(params[:id])
+    creator_posts = CreatorPost.where(creator_id: @creator.id)
+    works = creator_posts.select { |creator_post| creator_post.post_image.attached? || creator_post.audio.present? }
+
+    @work_data = works.sort_by(&:created_at).reverse
+    @works = Kaminari.paginate_array(@work_data).page(params[:page]).per(10)
+  end
+
   # 投稿詳細
   def show
     if CreatorPost.find_by(post_numbering_id: params[:id]).present?
@@ -67,12 +77,12 @@ class PostsController < ApplicationController
       post_numbering.update(viewer_post_id: viewer_post.id)
       viewer_post.save_post_tags(tag_list)
       flash[:notice] = "投稿しました"
-      redirect_to session[:previous_url]
+      redirect_to session[:previous_url] || root_path
     else
       post_numbering.delete
       @viewer_post = ViewerPost.new
       flash[:notice] = "投稿できませんでした"
-      render :viewer_post_new
+      render :viewer_post_new || root_path
     end
   end
 
@@ -102,12 +112,12 @@ class PostsController < ApplicationController
       post_numbering.update(creator_post_id: creator_post.id)
       creator_post.save_post_tags(tag_list)
       flash[:notice] = "投稿しました"
-      redirect_to session[:previous_url]
+      redirect_to session[:previous_url] || root_path
     else
       post_numbering.delete
       @creator_post = CreatorPost.new
       flash[:notice] = "投稿できませんでした"
-      render :creater_post_new
+      render :creater_post_new || root_path
     end
   end
 

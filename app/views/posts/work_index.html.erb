@@ -64,7 +64,7 @@
           投稿
         <% end %>
       </div>
-      
+
       <div>
         <%= link_to work_index_path(@creator), class: "black-text-link" do %>
           作品
@@ -83,7 +83,7 @@
   <!--タイムライン-->
   <div class="col-md-6">
     <div class="w-100">
-      <%= render 'shared/timeline', posts: @posts %>
+      <%= render 'shared/timeline', posts: @works %>
     </div>
   </div>
 

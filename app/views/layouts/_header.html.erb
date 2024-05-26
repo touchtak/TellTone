@@ -1,64 +1,67 @@
 <header style="background-color:#305ea9;">
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-      <a class="navbar-brand p-3 gray-underline" style="color:#e7f8f7; border-radius:20px;" href="/"><span style="color:#00b000;">T</span>ell<span style="color:#ff91bb;">T</span>one</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ml-auto">
+  <a class="navbar-brand p-3 gray-underline" style="color:#e7f8f7; border-radius:20px;" href="/"><span style="color:#00b000;">T</span>ell<span style="color:#ff91bb;">T</span>one</a>
 
-          <!--ログイン時-->
-          <% if user_signed_in? %>
+  <!--ログイン時-->
+  <% if user_signed_in? %>
 
-            <%= render 'searches/search' %>
+  <!--ハンバーガーメニュー-->
+  <% if current_user.viewer_id.present? %>
+    <a class="menu-trigger" href="#">
+      <%= image_tag current_user.viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 50px; max-height: 50px; object-fit: contain;" %>
+    </a>
+  <% end %>
 
-            <!--ビューワー登録後に表示-->
-            <% if current_user.viewer_id.present? %>
-              <li class="nav-item pl-3">
-                <%= link_to  posts_path, class: 'btn btn-outline-primary white-btn' do %>
-                  <i class="fa-solid fa-house"></i>
-                <% end %>
-              </li>
+  <nav id="gnav">
+    <div id="sp-menu">
+      <ul>
+        <%= render 'searches/search' %>
 
-              <% if current_user.creator_id.present? %>
-                <li class="nav-item pl-3">
-                  <%= link_to 'クリエイターページ', creator_path(current_user.creator_id), class: 'btn btn-outline-primary white-btn' %>
-                </li>
-              <% else %>
-                <li class="nav-item pl-3">
-                  <%= link_to '作品投稿を始める', new_creator_path, class: 'btn btn-outline-primary white-btn' %>
-                </li>
-              <% end %>
+        <!--ビューワー登録後に表示-->
+        <% if current_user.viewer_id.present? %>
+          <li>
+            
+          </li>
 
-              <li class="nav-item pl-3">
-                <%= link_to 'マイページ', viewer_path(current_user.viewer_id), class: 'btn btn-outline-primary white-btn' %>
-              </li>
-            <% end %>
-
-            <li class="nav-item pl-3">
-              <%= link_to '投稿フォーム', new_viewer_posts_path, class: 'btn btn-outline-primary white-btn' %>
+          <% if current_user.creator_id.present? %>
+            <li>
+              <%= link_to 'クリエイターページ', creator_path(current_user.creator_id), class: 'btn btn-outline-primary white-btn' %>
             </li>
-            <li class="nav-item pl-3">
-              <%= link_to 'ユーザー編集', edit_registration_path(current_user), class: 'btn btn-outline-primary white-btn' %>
-            </li>
-            <li class="nav-item pl-3">
-              <%= link_to destroy_user_session_path, data: { confirm: "ログアウトしますか？", turbo_confirm: "ログアウトしますか？" }, method: :delete, class: 'btn btn-outline-primary white-btn' do %>
-                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-              <% end %>
-            </li>
-
-          <!--未ログイン時-->
           <% else %>
-            <li class="nav-item">
-              <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-outline-primary white-btn' %>
-            </li>
-            <li class="nav-item pl-3">
-              <%= link_to "ログイン", new_user_session_path, class: 'btn btn-outline-primary white-btn' %>
+            <li>
+              <%= link_to '作品投稿を始める', new_creator_path, class: 'btn btn-outline-primary white-btn' %>
             </li>
           <% end %>
-        </ul>
-      </div>
+
+          <li>
+            <%= link_to 'マイページ', viewer_path(current_user.viewer_id), class: 'btn btn-outline-primary white-btn' %>
+          </li>
+        <% end %>
+
+        <li>
+          <%= link_to 'ユーザー編集', edit_registration_path(current_user), class: 'btn btn-outline-primary white-btn' %>
+        </li>
+        <li>
+          <%= link_to destroy_user_session_path, data: { confirm: "ログアウトしますか？", turbo_confirm: "ログアウトしますか？" }, method: :delete, class: 'btn btn-outline-primary white-btn' do %>
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> ログアウト
+          <% end %>
+        </li>
+      </ul>
     </div>
   </nav>
+
+  <!--未ログイン時-->
+  <% else %>
+    <nav class="navbar navbar-expand-md navbar-light nav-position">
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-outline-secondary white-btn' %>
+          </li>
+          <li class="nav-item pl-3">
+            <%= link_to "ログイン", new_user_session_path, class: 'btn btn-outline-secondary white-btn' %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  <% end %>
 </header>

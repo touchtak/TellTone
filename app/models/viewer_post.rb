@@ -24,6 +24,11 @@ class ViewerPost < ApplicationRecord
      likes.where(user_id: user.id).exists?
   end
 
+  # いいね数カウント
+  def like_count(viewer_post)
+      likes.where(viewer_post_id: viewer_post.id).count
+  end
+
   # タグ付け用
   def save_post_tags(tags)
     current_tags = self.post_tags.pluck(:name) unless self.post_tags.nil?
