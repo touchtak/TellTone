@@ -178,20 +178,21 @@ nav.pagination {
 }
 
 // ページ最上部移動ボタン
-#back {
+#bottom-menu {
   position: fixed;
   right: 20px;
   bottom: 20px;
 }
 
-// ハンバーガーメニュー
-#hm-icon {
+// 音声再生機能
+.audio_player{
   position: fixed;
-  right: 20px;
-  top: 20px;
-  z-index: 10;
+  left: 20px;
+  bottom: 20px;
 }
-.menu-trigger {
+
+// ハンバーガーメニュー
+#menu-trigger {
   position: absolute;
   top: 5px;
   right: 20px;
@@ -201,6 +202,7 @@ nav.pagination {
   position: fixed;
   top: 0;
   left: 0;
+  padding-top: 25px;
   background: #000;
   color: #fff;
   width: 100%;
@@ -208,10 +210,12 @@ nav.pagination {
   display: none;
   z-index: 9;
 }
+
 #sp-menu li {
   text-align: center;
   margin-bottom: 30px;
 }
+
 #sp-menu a {
   color: #fff;
   text-decoration: none;

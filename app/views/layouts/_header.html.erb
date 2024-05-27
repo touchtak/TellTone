@@ -6,22 +6,16 @@
 
   <!--ハンバーガーメニュー-->
   <% if current_user.viewer_id.present? %>
-    <a class="menu-trigger" href="#">
+    <a id="menu-trigger" href="#">
       <%= image_tag current_user.viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 50px; max-height: 50px; object-fit: contain;" %>
     </a>
   <% end %>
 
-  <nav id="gnav">
+  <nav>
     <div id="sp-menu">
       <ul>
-        <%= render 'searches/search' %>
-
         <!--ビューワー登録後に表示-->
         <% if current_user.viewer_id.present? %>
-          <li>
-            
-          </li>
-
           <% if current_user.creator_id.present? %>
             <li>
               <%= link_to 'クリエイターページ', creator_path(current_user.creator_id), class: 'btn btn-outline-primary white-btn' %>
@@ -33,7 +27,7 @@
           <% end %>
 
           <li>
-            <%= link_to 'マイページ', viewer_path(current_user.viewer_id), class: 'btn btn-outline-primary white-btn' %>
+            <%= link_to 'ビューワーページ', viewer_path(current_user.viewer_id), class: 'btn btn-outline-primary white-btn' %>
           </li>
         <% end %>
 

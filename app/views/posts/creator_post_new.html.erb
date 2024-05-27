@@ -40,7 +40,7 @@
 
   <div class="row mb-3 mt-3">
     <div class="col-md-2 offset-md-3">
-      <%= f.label :emotion, "作品のイメージ" %>
+      <%= f.label :emotion_id, "作品のイメージ" %>
     </div>
     <div class="col-md-7">
       <%= f.collection_select :emotion_id, Emotion.all, :id, :name, { prompt: "--選択してください--" }, class: "form-control" %>

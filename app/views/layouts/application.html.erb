@@ -26,32 +26,40 @@
 
         <%= yield %>
 
-        <!--ページ最上部移動ボタン-->
-      <span id="back">
-        <div class="btn btn-group-md">
-          <%= link_to  posts_path, class: 'btn btn-secondary mr-3' do %>
-            <i class="fa-solid fa-house"></i>
-          <% end %>
+        <!--下部メニュー-->
+        <span id="bottom-menu">
+          <div class="btn btn-group-md">
+            <% if user_signed_in? %>
+              <% if current_user.viewer_id.present? %>
+                <%= link_to  posts_path, class: 'btn btn-secondary mr-3' do %>
+                  <i class="fa-solid fa-house"></i>
+                <% end %>
 
-          <% unless current_page?(new_viewer_posts_path) || current_page?(new_creator_posts_path) %>
-            <% if current_user.viewer_id.present? %>
-              <%= link_to new_viewer_posts_path, class: 'btn btn-success mr-3' do %>
-                <i class="fa-solid fa-plus fa-lg"></i>
+                <%= link_to  post_search_form_path, class: 'btn pink-normal-btn mr-3' do %>
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                <% end %>
+
+                <% unless current_page?(new_viewer_posts_path) || current_page?(new_creator_posts_path) %>
+                  <% if current_user.viewer_id.present? %>
+                    <%= link_to new_viewer_posts_path, class: 'btn btn-success mr-3' do %>
+                      <i class="fa-solid fa-plus fa-lg"></i>
+                    <% end %>
+                  <% end %>
+
+                  <% if current_user.creator_id.present? %>
+                    <%= link_to new_creator_posts_path, class: 'btn pink-normal-btn mr-3' do %>
+                      <i class="fa-solid fa-palette fa-lg"></i>
+                    <% end %>
+                  <% end %>
+                <% end %>
               <% end %>
             <% end %>
 
-            <% if current_user.creator_id.present? %>
-              <%= link_to new_creator_posts_path, class: 'btn pink-normal-btn mr-3' do %>
-                <i class="fa-solid fa-palette fa-lg"></i>
-              <% end %>
-            <% end %>
-          <% end %>
-
-          <a class="btn btn-secondary" href="#">
-            <i class="fa-solid fa-arrow-up fa-lg"></i>
-          </a>
-        </div>
-      </span>
+            <a class="btn btn-secondary" id="back" href="#">
+              <i class="fa-solid fa-arrow-up fa-lg"></i>
+            </a>
+          </div>
+        </span>
 
       </div>
     </main>
