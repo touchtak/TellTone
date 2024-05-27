@@ -192,7 +192,7 @@ nav.pagination {
 }
 
 // ハンバーガーメニュー
-#menu-trigger {
+.menu-trigger, .menu-close-trigger {
   position: absolute;
   top: 5px;
   right: 20px;

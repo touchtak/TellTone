@@ -6,13 +6,16 @@
 
   <!--ハンバーガーメニュー-->
   <% if current_user.viewer_id.present? %>
-    <a id="menu-trigger" href="#">
+    <a class="menu-trigger" href="">
       <%= image_tag current_user.viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 50px; max-height: 50px; object-fit: contain;" %>
     </a>
   <% end %>
 
   <nav>
     <div id="sp-menu">
+      <a class="menu-close-trigger" href="">
+        <%= image_tag current_user.viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 50px; max-height: 50px; object-fit: contain;" %>
+      </a>
       <ul>
         <!--ビューワー登録後に表示-->
         <% if current_user.viewer_id.present? %>

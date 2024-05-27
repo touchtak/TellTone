@@ -80,8 +80,8 @@ class PostsController < ApplicationController
       redirect_to session[:previous_url] || root_path
     else
       post_numbering.delete
-      @viewer_post = ViewerPost.new
-      flash[:notice] = "投稿できませんでした"
+      @viewer_post = viewer_post
+      flash.now[:notice] = "投稿できませんでした"
       render :viewer_post_new || root_path
     end
   end
@@ -115,9 +115,9 @@ class PostsController < ApplicationController
       redirect_to session[:previous_url] || root_path
     else
       post_numbering.delete
-      @creator_post = CreatorPost.new
-      flash[:notice] = "投稿できませんでした"
-      render :creater_post_new || root_path
+      @creator_post = creator_post
+      flash.now[:notice] = "投稿できませんでした"
+      render :creator_post_new || root_path
     end
   end
 

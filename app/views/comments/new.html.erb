@@ -1,3 +1,6 @@
+<!--エラーメッセージ-->
+<%= render "devise/shared/error_messages", resource: @comment %>
+
 <!--ページ名-->
 <div class="row">
   <div class="col-md-12 text-center">
@@ -5,8 +8,6 @@
   </div>
 </div>
 
-<!--エラーメッセージ-->
-<%= render "devise/shared/error_messages", resource: @comment %>
 <!--コメント先の投稿-->
 <div class="row d-flex justify-content-center mb-4">
   <div style="width:400px;">
@@ -61,7 +62,7 @@
 <!--入力フォーム-->
 <div class="row d-flex justify-content-center">
   <div class="designed-forms d-flex justify-content-center">
-    <%= form_with model: @comment, url: comment_path(@post.post_numbering_id), multipart: true do |f|  %>
+    <%= form_with model: @comment, url: comment_path(@post.post_numbering_id), multipart: true, local: true do |f|  %>
       <div class="field mb-3">
         <%= f.label '本文' %><br />
         <%= f.text_area :comment, autofocus: true, autocomplete: "introduction" %>

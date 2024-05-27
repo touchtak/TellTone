@@ -39,17 +39,15 @@
                   <i class="fa-solid fa-magnifying-glass"></i>
                 <% end %>
 
-                <% unless current_page?(new_viewer_posts_path) || current_page?(new_creator_posts_path) %>
-                  <% if current_user.viewer_id.present? %>
-                    <%= link_to new_viewer_posts_path, class: 'btn btn-success mr-3' do %>
-                      <i class="fa-solid fa-plus fa-lg"></i>
-                    <% end %>
+                <% if current_user.viewer_id.present? %>
+                  <%= link_to new_viewer_posts_path, class: 'btn btn-success mr-3' do %>
+                    <i class="fa-solid fa-plus fa-lg"></i>
                   <% end %>
+                <% end %>
 
-                  <% if current_user.creator_id.present? %>
-                    <%= link_to new_creator_posts_path, class: 'btn pink-normal-btn mr-3' do %>
-                      <i class="fa-solid fa-palette fa-lg"></i>
-                    <% end %>
+                <% if current_user.creator_id.present? %>
+                  <%= link_to new_creator_posts_path, class: 'btn pink-normal-btn mr-3' do %>
+                    <i class="fa-solid fa-palette fa-lg"></i>
                   <% end %>
                 <% end %>
               <% end %>

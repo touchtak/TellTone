@@ -18,25 +18,24 @@ class CommentsController < ApplicationController
   end
 
   def create
-    comment = Comment.new(comment_params)
-    comment.user_id = current_user.id
-    comment.viewer_id = current_user.viewer.id
+    @comment = Comment.new(comment_params)
+    @comment.user_id = current_user.id
+    @comment.viewer_id = current_user.viewer.id
 
     if CreatorPost.find_by(post_numbering_id: params[:id]).present?
       post = CreatorPost.find_by(post_numbering_id: params[:id])
-      comment.creator_post_id = post.id
+      @comment.creator_post_id = post.id
     elsif ViewerPost.find_by(post_numbering_id: params[:id]).present?
       post = ViewerPost.find_by(post_numbering_id: params[:id])
-      comment.viewer_post_id = post.id
+      @comment.viewer_post_id = post.id
     end
 
-    if comment.save
+    if @comment.save
       flash[:notice] = "コメントしました"
       redirect_to session[:previous_url]
     else
       @post = post
-      @comment = Comment.new
-      flash[:notice] = "投稿できませんでした"
+      flash.now[:notice] = "投稿できませんでした"
       render :new
     end
   end
