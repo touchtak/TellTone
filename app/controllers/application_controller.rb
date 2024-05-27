@@ -6,4 +6,12 @@ class ApplicationController < ActionController::Base
       posts_path
   end
 
+  # ビューワー未作成の時、各ページへのアクセスを制限する
+  def current_viewer_existence_before_check
+    unless current_user.viewer_id.present?
+      flash[:notice] = "ビューワー情報が未登録です"
+      redirect_to new_viewer_path
+    end
+  end
+
 end

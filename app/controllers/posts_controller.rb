@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :current_viewer_existence_before_check
   before_action :viewer_existence_check
   before_action :creater_existence_check, only: [:creater_post_new, :creater_post_create]
   before_action :post_current_user_verification, only: [:destroy]

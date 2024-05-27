@@ -1,4 +1,5 @@
 class ViewersController < ApplicationController
+  before_action :current_viewer_existence_before_check, except: [:new, :create]
   before_action :current_viewer_existence_check, only: [:new, :create]
   before_action :viewer_existence_check, only: [:show, :edit]
   before_action :viewer_current_user_verification, only: [:edit, :update]
@@ -21,7 +22,8 @@ class ViewersController < ApplicationController
       flash[:notice] = "アカウントを作成しました。ようこそ！"
       redirect_to viewer_path(viewer)
     else
-      @viewer = Viewer.new
+      @viewer = viewer
+      flash.now[:notice] = "アカウント作成に失敗しました"
       render :new
     end
   end
@@ -47,7 +49,7 @@ class ViewersController < ApplicationController
       flash[:notice] = "変更しました"
       redirect_to viewer_path(current_user.viewer_id)
     else
-      flash[:notice] = "変更に失敗しました"
+      flash.now[:notice] = "変更に失敗しました"
       @viewer = viewer
       render :edit
     end

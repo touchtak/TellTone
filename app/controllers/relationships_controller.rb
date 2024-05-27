@@ -1,4 +1,5 @@
 class RelationshipsController < ApplicationController
+  before_action :current_viewer_existence_before_check
 
   # フォロー時の処理
   def creator_relation_create

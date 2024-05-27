@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :current_viewer_existence_before_check
 
   # ユーザー検索
   def search_form

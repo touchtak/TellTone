@@ -9,8 +9,12 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :viewers, only: [:new, :create, :show, :index, :edit, :update]
-  resources :creators, only: [:new, :create, :show, :index, :edit, :update]
+  resources :viewers, only: [:new, :create, :show, :index, :edit]
+  post 'viewers/new' => 'viewers#create', as: "viewer_create"
+  patch 'viewers/:id/edit' => 'viewers#update', as: "viewer_update"
+  resources :creators, only: [:new, :create, :show, :index, :edit]
+  post 'creators/new' => 'creators#create', as: "creator_create"
+  patch 'creators/:id/edit' => 'creators#update', as: "creator_update"
   # フォロー機能
   post 'viewer/:id/follow' => 'relationships#viewer_relation_create', as: "viewer_follow"
   post 'creator/:id/follow' => 'relationships#creator_relation_create', as: "creator_follow"
@@ -53,9 +57,9 @@ Rails.application.routes.draw do
   # リクエスト機能
   get 'creator/:id/requests' => 'requests#index', as: "requests"
   get 'creator/:id/requests/new' => 'requests#new', as: "new_request"
-  post 'creator/:id/request' => 'requests#create', as: "request"
+  post 'creator/:id/requests/new' => 'requests#create', as: "request"
   get 'creator/:id/requests/edit' => 'requests#edit', as: "edit_request"
-  patch 'creator/:id/request' => 'requests#update', as: "update_request"
+  patch 'creator/:id/requests/edit' => 'requests#update', as: "update_request"
   delete 'creator/:id/request' => 'requests#destroy', as: "destroy_request"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

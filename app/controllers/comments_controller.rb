@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :current_viewer_existence_before_check
 
   def new
     if CreatorPost.find_by(post_numbering_id: params[:id]).present?

@@ -1,4 +1,5 @@
 class LikesController < ApplicationController
+  before_action :current_viewer_existence_before_check
   before_action :set_viewer, only: [:like_posts, :like_creator_posts]
 
   # いいね一覧

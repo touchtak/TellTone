@@ -1,12 +1,12 @@
+<!--エラーメッセージ-->
+<%= render "devise/shared/error_messages", resource: @request %>
+
 <!--ページ名-->
 <div class="row">
   <div class="col-md-12 text-center">
     <h2>リクエストを編集</h2>
   </div>
 </div>
-
-<!--エラーメッセージ-->
-<%= render "devise/shared/error_messages", resource: @request %>
 
 <!--投稿フォーム-->
 <%= form_with model: @request, url: update_request_path(@request), method: :patch, multipart: true do |f| %>

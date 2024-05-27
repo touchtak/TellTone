@@ -52,15 +52,17 @@ $(function() {
 $(function(){
   //hamburger menu click
   $(document).on('click', '.menu-trigger', function(){
+    $(".menu-trigger").toggleClass('active');
     $('#sp-menu').fadeToggle();
+    event.preventDefault();
   });
 });
 
-
-$(function(){
   //menu link click
-  $(document).on('click', '.menu-close-trigger', function(){
+$(function(){
+  $(document).on('click', '.menu-trigger.active', function(){
     if(window.innerWidth <= 680){
+      $(".menu-trigger").removeClass('active');
       $('#sp-menu').fadeOut();
     }
   });

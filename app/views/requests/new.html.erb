@@ -1,3 +1,6 @@
+<!--エラーメッセージ-->
+<%= render "devise/shared/error_messages", resource: @request %>
+
 <!--ページ名-->
 <div class="row">
   <div class="col-md-12 text-center">
@@ -5,15 +8,12 @@
   </div>
 </div>
 
-<!--エラーメッセージ-->
-<%= render "devise/shared/error_messages", resource: @request %>
-
 <!--投稿フォーム-->
 <%= form_with model: @request, url: request_path(@creator), multipart: true do |f| %>
 
   <div class="row mt-3">
     <div class="col-md-1 offset-md-3">
-      <%= f.label :body %>
+      <%= f.label :body, "本文" %>
     </div>
     <div class="col-md-4 offset-md-1">
       <%= f.text_area :body, placeholder: "  リクエストを送りましょう！", autofocus: true, style: "height: 200px; width: 300px;" %>

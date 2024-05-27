@@ -1,4 +1,5 @@
 class CreatorsController < ApplicationController
+  before_action :current_viewer_existence_before_check
   before_action :current_creator_existence_check, only: [:new, :create]
   before_action :creator_existence_check, only: [:show, :edit]
   before_action :creator_current_user_verification, only: [:edit, :update]
@@ -18,10 +19,11 @@ class CreatorsController < ApplicationController
       current_user.creator_id = creator.id
       current_user.update(creator_id: creator.id)
 
-      flash[:notice] = "アカウントを作成しました。ようこそ！"
+      flash[:notice] = "クリエイター情報を登録しました。ようこそ！"
       redirect_to creator_path(creator)
     else
-      @creator = Creator.new
+      @creator = creator
+      flash.now[:notice] = "登録に失敗しました"
       render :new
     end
   end
@@ -46,7 +48,7 @@ class CreatorsController < ApplicationController
       flash[:notice] = "変更しました"
       redirect_to creator_path(creator.id)
     else
-      flash[:notice] = "変更に失敗しました"
+      flash.now[:notice] = "変更に失敗しました"
       @creator = creator
       render :edit
     end

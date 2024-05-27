@@ -21,3 +21,5 @@ ja:
         post_image: 画像ファイル
       comment:
         comment: コメント
+      request:
+        body: 本文
