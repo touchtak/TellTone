@@ -48,9 +48,7 @@ $(function() {
 });
 
 // ハンバーガーメニュー用
-
 $(function(){
-  //hamburger menu click
   $(document).on('click', '.menu-trigger', function(){
     $(".menu-trigger").toggleClass('active');
     $('#sp-menu').fadeToggle();
@@ -58,7 +56,6 @@ $(function(){
   });
 });
 
-  //menu link click
 $(function(){
   $(document).on('click', '.menu-trigger.active', function(){
     if(window.innerWidth <= 680){

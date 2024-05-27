@@ -3,6 +3,7 @@
 
   <div class="col-md-6">
     <div class="posts-show w-100">
+      <!--クリエイター投稿の場合-->
       <% if @post.respond_to?(:creator_id) && @post.creator_id.present? %>
         <div style="height:fit-content;">
           <div class="d-inline-flex" style="height:75px;">
@@ -28,11 +29,29 @@
                 <%= image_tag(@post.post_image, class: "img-fluid", style: "max-width: 300px; max-height: 400px; object-fit: contain;") %>
               <% end %>
             <% end %>
+            <% if @post.audio.present? %>
+              <audio src= "<%= "#{@post.audio}" %>" controls="">
+                <a src="<%= "#{@post.audio}" %>">ダウンロード</a>
+              </audio>
+            <% end %>
+
+            <!--タグ表示-->
+            <p style="font-size:14px;">
+              <% @post.post_tags.each do |tag| %>
+                <i class="fa-solid fa-tag"></i><span style="color:#888;"><%= tag.name %>　</span>
+              <% end %>
+            </p>
 
             <div class="d-flex justify-content-end ">
+              <!--いいねボタン-->
+              <%= render "likes/like", post: @post %>
+
+              <!--コメントボタン-->
               <%= link_to new_comment_path(@post.post_numbering_id), class: "blue-text-link" do %>
                 <i class="fa-regular fa-comment mr-3"></i>
               <% end %>
+
+              <!--削除ボタン-->
               <% if @post.user_id == current_user.id %>
                 <%= link_to post_path(@post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？", class: "blue-text-link" do %>
                   <i class="fa-solid fa-trash mr-3"></i>
@@ -69,6 +88,11 @@
               <% end %>
             <% end %>
 
+            <!--タグ表示-->
+            <% @post.post_tags.each do |tag| %>
+              <p style="font-size:14px;"><i class="fa-solid fa-tag"></i><span style="color:#888;"><%= tag.name %></span> </p>
+            <% end %>
+
             <div class="d-flex justify-content-end mt-2">
               <!--いいねボタン-->
               <%= render "likes/like", post: @post %>
@@ -81,7 +105,7 @@
               <!--削除ボタン-->
               <% if @post.user_id == current_user.id %>
                 <%= link_to post_path(@post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？", class: "blue-text-link" do %>
-                  <i class="fa-solid fa-trash"></i>
+                  <i class="fa-solid fa-trash mr-3"></i>
                 <% end %>
               <% end %>
             </div>
