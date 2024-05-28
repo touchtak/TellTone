@@ -30,7 +30,8 @@ class SearchesController < ApplicationController
         creator_posts = CreatorPost.looks(params[:search], params[:word])
         posts = creator_posts.shuffle
       end
-      @posts = Kaminari.paginate_array(posts).page(params[:page]).per(10)
+      posts_data = posts.select{ |post| post.post_image.attached? }
+      @posts = Kaminari.paginate_array(posts_data).page(params[:page]).per(10)
       render 'posts/index'
 
     else
@@ -44,9 +45,7 @@ class SearchesController < ApplicationController
         viewer_posts = ViewerPost.looks(params[:search], params[:word])
         posts = viewer_posts.shuffle
       end
-
-      posts_data = posts.select{ |post| post.post_image.attached? }
-      @posts = Kaminari.paginate_array(posts_data).page(params[:page]).per(10)
+      @posts = Kaminari.paginate_array(posts).page(params[:page]).per(10)
       render 'posts/index'
     end
   end
