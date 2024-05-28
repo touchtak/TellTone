@@ -29,7 +29,6 @@
 ⇒ **公開状態を設定できるリクエストページを、サイト内で一つ明確に用意する** ことでリクエストをサイトの基本的な機能として取り入れます。
 <br>
 <br>
-(4点目は、時間が許せば挑戦します)
 
 <span style="background-color:#ffdde9">***4,*** SNSの性質上、音楽媒体の作品は画像媒体の作品に比べ、聞くのに時間がかかるため、試聴されづらいです。</span>
 
@@ -52,7 +51,7 @@
 <br>
 <br>
 ## 設計書
-<!--テーマを設定・提出する時点では不要です-->
+https://docs.google.com/spreadsheets/d/1bzHb25QSOcP2bjdmTcB3gsocoYbdIB1WRQOmJHkNWyU/edit#gid=549108681
 
 ## 開発環境
 - OS：Linux(CentOS)
@@ -61,5 +60,9 @@
 - JSライブラリ：jQuery
 - IDE：Cloud9
 
-## 使用素材
-外部サイトのフリー画像とフリー音楽を使用予定です。使用した際に、都度記載していきます。
+## 素材をお借りしたサイト様
+DOVA-SYNDROME
+https://dova-s.jp/
+
+イラストAC
+https://www.ac-illust.com/

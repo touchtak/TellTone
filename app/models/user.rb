@@ -11,6 +11,6 @@ class User < ApplicationRecord
   has_many :creator_posts, dependent: :destroy
   has_many :likes, dependent: :destroy
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, length:{maximum:20}
 
 end

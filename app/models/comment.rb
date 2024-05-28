@@ -7,6 +7,6 @@ class Comment < ApplicationRecord
   belongs_to :viewer_post, optional: true
   belongs_to :creator_post, optional: true
 
-  validates :comment, presence: true
+  validates :comment, presence: true, length:{maximum:140}
 
 end

@@ -1,15 +1,8 @@
-<!--ページ名-->
-<div class="row">
-  <div class="col-md-12 text-center">
-    <h2></h2>
-  </div>
-</div>
-
 <!--エラーメッセージ-->
 <%= render "devise/shared/error_messages", resource: @creator_post %>
 
 <!--投稿フォーム-->
-<%= form_with model: @creator_post, url: creator_posts_path, multipart: true do |f| %>
+<%= form_with model: @creator_post, url: creator_posts_path, data: { confirm: "クリエイター投稿しますか？", turbo_confirm: "クリエイター投稿しますか？" }, multipart: true do |f| %>
 
   <div class="row mb-3 mt-3">
     <div class="col-md-2 offset-md-3">
@@ -35,6 +28,24 @@
     </div>
     <div class="col-md-4 offset-md-1">
       <%= f.text_area :body, placeholder: "投稿文", autofocus: true, style: "height: 200px; width: 300px;" %>
+    </div>
+  </div>
+
+  <div class="row mb-3 mt-3">
+    <div class="col-md-2 offset-md-3">
+      <%= f.label :emotion_id, "作品のイメージ" %>
+    </div>
+    <div class="col-md-7">
+      <%= f.collection_select :emotion_id, Emotion.all, :id, :name, { prompt: "--選択してください--" }, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row mb-3 mt-3">
+    <div class="col-md-2 offset-md-3">
+      <%= f.label :name, "タグ(,で区切ると複数タグ登録できます)" %>
+    </div>
+    <div class="col-md-7">
+      <%= f.text_field :name,value: @tag_list, class: 'form-control' %>
     </div>
   </div>
 

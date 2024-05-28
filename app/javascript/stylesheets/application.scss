@@ -1,5 +1,11 @@
 @use '~bootstrap/scss/bootstrap';
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 // テキスト修飾
 .gray-underline, .gray-underline:hover, .gray-underline:visited{
   text-decoration: underline;
@@ -9,24 +15,52 @@
 // 色ボタン
 .pink-btn{
   color: #ff91bb;
-  border-color:#ff91bb;
+  border-color: #ff91bb;
 }
 
 .pink-btn:hover, .pink-btn:active{
   color: #fff;
   background-color: #ff91bb;
-  border-color:#ff91bb;
+  border-color: #ff91bb;
+}
+
+.pink-normal-btn{
+  color: #fff;
+  background-color: #ff91bb;
+  border-color: #ff91bb;
+}
+
+.pink-normal-btn:hover, .pink-normal-btn:active{
+  color: #fff;
+  background-color: #e5769e;
+  border-color: #e5769e;
 }
 
 .white-btn{
   color: #fff;
-  border-color:#fff;
+  border-color: #fff;
 }
 
 .white-btn:hover, .white-btn:active{
   color: #555;
   background-color: #fff;
-  border-color:#fff;
+  border-color: #fff;
+}
+
+// リンク色
+.blue-text-link, .blue-text-link:hover, .blue-text-link:visited{
+  text-decoration: none;
+  color: #305ea9;
+}
+
+.gray-text-link, .gray-text-link:hover, .gray-text-link:visited{
+  text-decoration: none;
+  color: #666;
+}
+
+.black-text-link, .black-text-link:hover, .black-text-link:visited{
+  text-decoration: none;
+  color: black;
 }
 
 // フォームデザイン
@@ -56,76 +90,11 @@
   border: 2px solid #ff91bb;
 }
 
-// flashメッセージデザイン
-main {
-  .main {
-    .flash-window  {
-      // 窓の形、色、文字の形、色
-      height: 50px;
-      padding: 10px;
-      color: white;
-      background: black;
-      border-radius: 10px;
-
-      // 中のp要素(メッセージ)を上下左右中央揃え
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      // 表示・非表示にかける時間
-      transition: 0.5s 0s ease;
-
-      // 窓の位置調整
-      position: fixed;
-      bottom: 40px;
-      left: 0;
-      right: 0;
-      margin: auto;
-
-      p {
-        color: white;
-
-        span {
-          margin-left: 1vw;
-          color: white;
-
-          &:hover {
-            cursor: pointer;
-          }
-        }
-      }
-
-      // 窓が非表示の時の状態
-      &.hidden {
-        opacity: 0;
-        bottom: -50px;
-      }
-    }
-  }
-}
-
-@media (min-width: PC, タブレット共通) {
-  main {
-    .main {
-      .flash-window  {
-        // 大画面の時は窓の横幅は固定
-        width: 500px;
-      }
-    }
-  }
-}
-@media (min-width: スマホ) {
-  main {
-    .main {
-      .flash-window  {
-        // 小画面の時は画面サイズの90%で可変
-        width: 90%;
-        p {
-          font-size: 4vw;
-        }
-      }
-    }
-  }
+// navバー位置
+.nav-position{
+  position: absolute;
+  top: 5px;
+  right: 20px;
 }
 
 // 無限スクロール用
@@ -137,9 +106,58 @@ nav.pagination {
 }
 
 // ページ最上部移動ボタン
-#back {
+#bottom-menu {
   position: fixed;
   right: 20px;
   bottom: 20px;
 }
 
+// 音声再生機能
+.audio_player{
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+}
+
+// ハンバーガーメニュー
+.menu-trigger {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+}
+
+#sp-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 25px;
+  background: #000;
+  color: #fff;
+  width: 100%;
+  min-height: 100%;
+  display: none;
+  z-index: 9;
+}
+
+#sp-menu li {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#sp-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+// 音声再生機能
+.audio_player_design {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  width: 318px;
+  height: 100px;
+  background-color: #fff;
+  border: 2px solid #ff91bb;
+  border-radius: 8px;
+}

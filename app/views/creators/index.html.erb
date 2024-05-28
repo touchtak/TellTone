@@ -1,21 +1,21 @@
 <h2>クリエイター一覧</h2>
 
 <table class="table table-hover table-inverse">
-    <tbody>
-      <tr class="scroll-list jscroll">
-        <% @creators.each do |creator| %>
-          <td>
-            <%= link_to creator_path(creator.id) do %>
-              <%= image_tag(creator.get_creator_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to creator_path(creator.id) do %>
-              <%= creator.name %>
-            <% end %>
-          </td>
-          <%= paginate @creators %>
-        <% end %>
+  <tbody class="scroll-list jscroll">
+    <% @creators.each do |creator| %>
+      <tr>
+        <td>
+          <%= link_to creator_path(creator.id) do %>
+            <%= image_tag(creator.get_creator_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to creator_path(creator.id), class: "black-text-link" do %>
+            <%= creator.name %>
+          <% end %>
+        </td>
       </tr>
-    </tbody>
+      <%= paginate @creators %>
+    <% end %>
+  </tbody>
 </table>

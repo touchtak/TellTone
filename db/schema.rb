@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_19_112044) do
+ActiveRecord::Schema.define(version: 2024_05_23_080143) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,7 +53,6 @@ ActiveRecord::Schema.define(version: 2024_05_19_112044) do
   create_table "creator_posts", force: :cascade do |t|
     t.integer "user_id"
     t.integer "creator_id"
-    t.integer "tag_id"
     t.integer "emotion_id"
     t.integer "post_numbering_id"
     t.string "audio"
@@ -98,6 +97,20 @@ ActiveRecord::Schema.define(version: 2024_05_19_112044) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "post_tag_relationships", force: :cascade do |t|
+    t.integer "viewer_post_id"
+    t.integer "creator_post_id"
+    t.integer "post_tag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "requests", force: :cascade do |t|
     t.integer "creator_id"
     t.integer "viewer_id"
@@ -125,7 +138,6 @@ ActiveRecord::Schema.define(version: 2024_05_19_112044) do
   create_table "viewer_posts", force: :cascade do |t|
     t.integer "user_id"
     t.integer "viewer_id"
-    t.integer "tag_id"
     t.integer "post_numbering_id"
     t.text "body", null: false
     t.datetime "created_at", precision: 6, null: false

@@ -11,7 +11,7 @@
     <% if @viewer.user_id == current_user.id %>
       <%= link_to edit_viewer_path do %>
         <div class="btn-group btn-group-md">
-          <div class="btn btn-outline-secondary">
+          <div class="btn btn-secondary">
             <i class="fa-solid fa-wrench fa-lg"></i>
           </div>
         </div>
@@ -45,19 +45,19 @@
   <div class="col-md-12">
     <div class="d-flex justify-content-around">
       <div>
-        <%= link_to viewer_path(@viewer) do %>
+        <%= link_to viewer_path(@viewer), class: "black-text-link" do %>
           投稿
         <% end %>
       </div>
 
       <div>
-        <%= link_to like_posts_path(@viewer) do %>
+        <%= link_to like_posts_path(@viewer), class: "black-text-link" do %>
           いいね
         <% end %>
       </div>
 
       <div>
-        <%= link_to like_creator_posts_path(@viewer) do %>
+        <%= link_to like_creator_posts_path(@viewer), class: "black-text-link" do %>
           いいねした作品
         <% end %>
       </div>
@@ -72,8 +72,10 @@
   <div class="col-md-3"></div>
 
   <!--タイムライン-->
-  <div class="col-md-9 post-page">
+  <div class="col-md-6 post-page">
       <%= render 'shared/timeline', posts: @like_works %>
   </div>
 
+  <!--余白-->
+  <div class="col-md-3"></div>
 </div>

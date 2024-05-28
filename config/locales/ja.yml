@@ -1,5 +1,7 @@
 ja:
   activerecord:
+    models:
+      comment: コメント
     attributes:
       user:
         name: ユーザー名
@@ -7,13 +9,17 @@ ja:
         name: 表示名
         inrtoduction: 自己紹介
         viewer_icon: アイコン
-      creater:
+      creator:
         name: クリエイター名
         introduction: 自己紹介
-        creater_icon: アイコン
+        creator_icon: アイコン
       viewer_post:
         body: 本文
         post_image: 画像ファイル
-      creater_post:
+      creator_post:
         body: 本文
         post_image: 画像ファイル
+      comment:
+        comment: コメント
+      request:
+        body: 本文

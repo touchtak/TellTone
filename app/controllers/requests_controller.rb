@@ -1,4 +1,5 @@
 class RequestsController < ApplicationController
+  before_action :current_viewer_existence_before_check
 
   def index
     requests = Request.where(creator_id: params[:id]).sort_by(&:created_at).reverse
@@ -9,9 +10,6 @@ class RequestsController < ApplicationController
   def new
     @request = Request.new
     @creator = Creator.find(params[:id])
-
-    # 投稿後に遷移する為、元のページのセッションを保存
-    session[:previous_url] = request.referer
   end
 
   def create
@@ -23,8 +21,10 @@ class RequestsController < ApplicationController
       flash[:notice] = "リクエストを投稿しました"
       redirect_to requests_path(request.creator_id)
     else
-      flash[:notice] = "投稿に失敗しました"
-      redirect_back(fallback_location: root_path)
+      @request = request
+      @creator = Creator.find(params[:id])
+      flash.now[:notice] = "投稿に失敗しました"
+      render :new || root_path
     end
   end
 
@@ -41,7 +41,7 @@ class RequestsController < ApplicationController
       flash[:notice] = "変更しました"
       redirect_to requests_path(request.creator_id)
     else
-      flash[:notice] = "変更に失敗しました"
+      flash.now[:notice] = "変更に失敗しました"
       @request = request
       render :edit
     end

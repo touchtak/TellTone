@@ -1,7 +1,15 @@
 <div class="row">
   <div class="col-md-3"></div>
 
-  <div class="col-md-9">
-    <%= render 'shared/timeline', posts: @posts %>
+  <div class="col-md-6">
+    <div class="w-100">
+      <%= render 'shared/timeline', posts: @posts %>
+    </div>
   </div>
+
+  <!--余白-->
+  <div class="col-md-3"></div>
+
+  <!--音声再生機能-->
+  <%= render 'posts/audio_play', {work: @audio_work, works: @audio_works_data, current_index: @current_index} %>
 </div>

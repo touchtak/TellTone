@@ -12,7 +12,8 @@ class Creator < ApplicationRecord
 
   belongs_to :user
 
-  validates :name, presence: true
+  validates :name, presence: true, length:{maximum:20}
+  validates :introduction, length:{maximum:140}
 
   # アイコン表示
   def get_creator_icon

@@ -1,25 +1,31 @@
 <div class="row">
   <div class="col-md-12 d-flex justify-content-end">
-    <%= link_to creator_path(@creator), class: "mr-3" do %>
-      <%= @creator.name %>さんのクリエイターページ
-    <% end %>
+    <div class="btn btn-group">
+      <%= link_to creator_path(@creator), class: "btn btn-outline-secondary mr-3" do %>
+        <%= @creator.name %>さんのクリエイターページ
+      <% end %>
 
-    <%= link_to new_request_path(@creator) do %>
-      リクエストを送る
-    <% end %>
+      <%= link_to new_request_path(@creator), class: "btn btn-outline-secondary" do %>
+        リクエストを送る
+      <% end %>
+    </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-3"></div>
 
-  <div class="col-md-7">
-    <h2><%= @creator.name %> さんへのリクエスト</h2>
+  <div class="col-md-6">
+    <div class="text-center mt-5">
+      <h3><%= @creator.name %> さんへのリクエスト</h3>
+    </div>
 
-    <div class="scroll-list jscroll" style="width:400px;">
+    <div class="scroll-list jscroll w-100">
       <!--投稿がない場合-->
       <% unless @requests.present? %>
-        <h4 class="no-post">投稿がありません</h4>
+        <div class="text-center mt-5">
+          <h4 class="no-post">投稿がありません</h4>
+        </div>
       <% end %>
 
       <% @requests.each do |request| %>
@@ -62,5 +68,5 @@
     </div>
   </div>
 
-  <div class="col-md-2"></div>
+  <div class="col-md-3"></div>
 </div>

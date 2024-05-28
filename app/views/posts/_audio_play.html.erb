@@ -1,0 +1,16 @@
+<div class="audio_player_design">
+
+      <div class="d-flex justify-content-around">
+        <%= link_to '←prev', previous_posts_path(works: works, current_index: current_index), class: "black-text-link", id: 'next-audio-work', remote: true %>
+
+        <%= link_to '投稿詳細', post_path(work.post_numbering_id), class: "black-text-link" %>
+
+        <%= link_to 'next→', next_posts_path(works: works, current_index: current_index), class: "black-text-link", id: 'next-audio-work', remote: true %>
+      </div>
+
+      <div class="audio_player pl-2">
+        <audio src= "<%= "#{work.audio}" %>" controls="">
+          <a src="<%= "#{work.audio}" %>">ダウンロード</a>
+        </audio>
+      </div>
+</div>
