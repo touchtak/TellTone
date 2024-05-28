@@ -19,8 +19,38 @@ class PostsController < ApplicationController
     following_creator_posts = CreatorPost.where(creator_id: current_user.viewer.creator_followings)
     following_viewer_posts = ViewerPost.where(viewer_id: current_user.viewer.viewer_followings)
 
+    # 再生用音声作品
+    creator_posts = (current_creator_posts + following_creator_posts)
+    audio_works = creator_posts.select { |work| work.audio.present? }
+    @audio_works_data = audio_works.sort_by(&:created_at).reverse
+    @audio_work = @audio_works_data[0]
+    @current_index = 0
+
     @post_data = (current_user_posts + following_creator_posts + following_viewer_posts).sort_by(&:created_at).reverse
     @posts = Kaminari.paginate_array(@post_data).page(params[:page]).per(10)
+  end
+
+  # 音声再生機能用
+  def previous
+    @audio_works_data = params[:works]
+    @current_index = params[:current_index].to_i - 1
+    if @audio_works_data[@current_index.to_i].present?
+      @audio_work = CreatorPost.find(@audio_works_data[@current_index.to_i])
+    else
+      @current_index = -1
+      @audio_work = CreatorPost.find(@audio_works_data[@current_index.to_i])
+    end
+  end
+
+  def next
+    @audio_works_data = params[:works]
+    @current_index = params[:current_index].to_i + 1
+    if @audio_works_data[@current_index.to_i].present?
+      @audio_work = CreatorPost.find(@audio_works_data[@current_index.to_i])
+    else
+      @current_index = 0
+      @audio_work = CreatorPost.find(@audio_works_data[@current_index.to_i])
+    end
   end
 
   # 投稿作品一覧

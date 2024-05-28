@@ -1,25 +1,16 @@
-<div class="audio_player">
-  <% if defined? works %>
-    <% works.each do |work| %>
-      <div id="audio_player_<%= audio_works %>">
+<div class="audio_player_design">
+
+      <div class="d-flex justify-content-around">
+        <%= link_to '←prev', previous_posts_path(works: works, current_index: current_index), class: "black-text-link", id: 'next-audio-work', remote: true %>
+
+        <%= link_to '投稿詳細', post_path(work.post_numbering_id), class: "black-text-link" %>
+
+        <%= link_to 'next→', next_posts_path(works: works, current_index: current_index), class: "black-text-link", id: 'next-audio-work', remote: true %>
+      </div>
+
+      <div class="audio_player pl-2">
         <audio src= "<%= "#{work.audio}" %>" controls="">
           <a src="<%= "#{work.audio}" %>">ダウンロード</a>
         </audio>
       </div>
-    <% end %>
-    <%= paginate works %>
-
-  <% end %>
-    <p>音楽作品を再生する</p>
-      <%= form_with url: audio_play_path, local: true, method: :get do |f| %>
-  
-        <%= f.label :emotion_id, "作品のイメージ" %>
-        <%= f.collection_select :emotion_id, Emotion.all, :id, :name, { prompt: "--選択してください--" }, class: "form-control" %>
-  
-        <%= f.select :sequence, options_for_select([['新着'], ['人気'],['ランダム']]) %>
-  
-        <%= f.select :range, options_for_select([['すべて'], ['フォロー中']]) %>
-
-      <%= f.submit "再生", class: "btn btn-primary" %>
-    <% end %>
 </div>

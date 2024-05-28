@@ -36,11 +36,12 @@ class SearchesController < ApplicationController
       end
 
       # 画像作品
-      works_data = posts_data.select { |work| work.post_image.attached? }
+      works_data = posts_data.select { |work| work.post_image.attached? || work.audio.present? }
       @posts = Kaminari.paginate_array(works_data).page(params[:page]).per(10)
       # 音声作品
-      audio_works_data = posts_data.select { |work| work.audio.present? }
-      @audio_works = Kaminari.paginate_array(audio_works_data).page(params[:page]).per(1)
+      @audio_works_data = posts_data.select { |work| work.audio.present? }
+      @audio_work = @audio_works_data[0]
+      @current_index = 0
 
       render 'posts/index'
 
@@ -65,7 +66,10 @@ class SearchesController < ApplicationController
       end
 
       @posts = Kaminari.paginate_array(posts_data).page(params[:page]).per(10)
-      @audios = Kaminari.paginate_array(audios_data).page(params[:page]).per(1)
+
+      @audio_works_data = audios_data
+      @audio_work = @audio_works_data[0]
+      @current_index = 0
       render 'posts/index'
     end
   end
@@ -105,11 +109,12 @@ class SearchesController < ApplicationController
     end
 
     # 画像作品
-    works_data = posts_data.select { |work| work.respond_to?(:creator_id) && work.post_image.attached? }
+    works_data = posts_data.select { |work| work.respond_to?(:creator_id) && work.post_image.attached? || work.respond_to?(:creator_id) && work.audio.present? }
     @posts = Kaminari.paginate_array(works_data).page(params[:page]).per(10)
     # 音声作品
-    audio_works_data = posts_data.select { |work| work.respond_to?(:creator_id) && work.audio.present? }
-    @audio_works = Kaminari.paginate_array(audio_works_data).page(params[:page]).per(1)
+    @audio_works_data = posts_data.select { |work| work.respond_to?(:creator_id) && work.audio.present? }
+    @audio_work = @audio_works_data[0]
+    @current_index = 0
     render 'posts/index'
   end
 
@@ -130,11 +135,12 @@ class SearchesController < ApplicationController
     end
 
     # 画像作品
-    works_data = posts_data.select { |work| work.respond_to?(:creator_id) && work.post_image.attached? }
+    works_data = posts_data.select { |work| work.respond_to?(:creator_id) && work.post_image.attached? || work.respond_to?(:creator_id) && work.audio.present? }
     @posts = Kaminari.paginate_array(works_data).page(params[:page]).per(10)
     # 音声作品
-    audio_works_data = posts_data.select { |work| work.respond_to?(:creator_id) && work.audio.present? }
-    @audio_works = Kaminari.paginate_array(audio_works_data).page(params[:page]).per(1)
+    @audio_works_data = posts_data.select { |work| work.respond_to?(:creator_id) && work.audio.present? }
+    @audio_work = @audio_works_data[0]
+    @current_index = 0
     render 'posts/index'
   end
 

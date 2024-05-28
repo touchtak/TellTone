@@ -149,3 +149,15 @@ nav.pagination {
   text-decoration: none;
   font-weight: bold;
 }
+
+// 音声再生機能
+.audio_player_design {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  width: 318px;
+  height: 100px;
+  background-color: #fff;
+  border: 2px solid #ff91bb;
+  border-radius: 8px;
+}

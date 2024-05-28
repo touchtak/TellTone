@@ -34,7 +34,10 @@ Rails.application.routes.draw do
   get 'emotion_search' => 'searches#emotion_search', as: "emotion_search"
 
   # 投稿関連
-  resources :posts, only: [:show, :index, :new, :destroy]
+  resources :posts, only: [:show, :index, :new, :destroy] do
+    get 'previous', on: :collection
+    get 'next', on: :collection
+  end
   get 'creators/:id/works' => 'posts#work_index', as: "work_index"
 
   # 新規投稿
