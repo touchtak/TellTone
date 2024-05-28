@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :current_viewer_existence_before_check
   before_action :viewer_existence_check
+  before_action :posts_existence_check, only: [:show]
   before_action :creater_existence_check, only: [:creater_post_new, :creater_post_create]
   before_action :post_current_user_verification, only: [:destroy]
 
@@ -236,6 +237,13 @@ class PostsController < ApplicationController
 
     unless post.user_id == current_user.id
       flash[:notice] = "他のユーザーの投稿は削除できません"
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def posts_existence_check
+    unless CreatorPost.find_by(post_numbering_id: params[:id]).present? || ViewerPost.find_by(post_numbering_id: params[:id]).present?
+      flash[:notice] = "投稿が存在しません"
       redirect_back(fallback_location: root_path)
     end
   end

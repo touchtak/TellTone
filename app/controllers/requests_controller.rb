@@ -1,5 +1,6 @@
 class RequestsController < ApplicationController
   before_action :current_viewer_existence_before_check
+  before_action :creator_existence_check
 
   def index
     requests = Request.where(creator_id: params[:id]).sort_by(&:created_at).reverse
@@ -63,6 +64,14 @@ class RequestsController < ApplicationController
 
   def request_params
     params.require(:request).permit(:body)
+  end
+
+  def creator_existence_check
+    creator = Creator.find_by(id: params[:id])
+    unless creator.present?
+      flash[:notice] = "クリエイターが存在しません"
+      redirect_back(fallback_location: root_path)
+    end
   end
 
 end
