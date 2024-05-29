@@ -252,10 +252,8 @@ class PostsController < ApplicationController
 
   #　投稿が存在しない場合、詳細ページへのアクセスを制限
   def post_existence_check
-    post = PostNumbering.find(params[:id])
-    unless post.present?
-      flash[:notice] = "投稿が存在しません"
-      redirect_to viewer_path(current_user.viewer)
+    unless PostNumbering.exists?(params[:id])
+      redirect_to viewer_path(current_user.viewer_id)
     end
   end
 
