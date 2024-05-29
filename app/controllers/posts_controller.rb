@@ -43,11 +43,11 @@ class PostsController < ApplicationController
     #   @current_index = 0
     # else
     # end
-    if following_creator_posts.present? && current_creator_posts.present?
+    if following_creator_posts.present? && following_creator_posts.present?
       @post_data = (current_user_posts + following_creator_posts + following_viewer_posts).sort_by(&:created_at).reverse
     elsif following_creator_posts.present?
       @post_data = (current_user_posts + following_creator_posts).sort_by(&:created_at).reverse
-    elsif current_creator_posts.present?
+    elsif following_viewer_posts.present?
       @post_data = (current_user_posts + following_viewer_posts).sort_by(&:created_at).reverse
     else
       @post_data = current_user_posts.sort_by(&:created_at).reverse
