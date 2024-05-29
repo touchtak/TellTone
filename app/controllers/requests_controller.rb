@@ -1,6 +1,6 @@
 class RequestsController < ApplicationController
   before_action :current_viewer_existence_before_check
-  before_action :creator_existence_check
+  before_action :creator_existence_check, only: [:index, :new]
 
   def index
     requests = Request.where(creator_id: params[:id]).sort_by(&:created_at).reverse
