@@ -1,6 +1,13 @@
 <!--エラーメッセージ-->
 <%= render "devise/shared/error_messages", resource: @creator_post %>
 
+<!--ページ名-->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h2>クリエイター投稿</h2>
+  </div>
+</div>
+
 <!--投稿フォーム-->
 <%= form_with model: @creator_post, url: creator_posts_path, data: { confirm: "クリエイター投稿しますか？", turbo_confirm: "クリエイター投稿しますか？" }, multipart: true do |f| %>
 

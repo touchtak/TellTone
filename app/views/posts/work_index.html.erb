@@ -1,7 +1,7 @@
 <!--クリエイター情報-->
 <div class="row p-3 mb-3" style="border-bottom:1px solid #aaa">
   <div class="col-md-1">
-    <%= image_tag(@creator.get_creator_icon, class: "img-fluid", style: "max-width: 100%; max-height: 100%; object-fit: contain;") %>
+    <%= image_tag(@creator.get_creator_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
   </div>
 
   <div class="col-md-11">
@@ -20,8 +20,8 @@
 
         <%= link_to new_creator_posts_path do %>
           <div class="btn-group btn-group-md ml-3">
-            <div class="btn btn-secondary">
-              <i class="fa-solid fa-plus fa-lg"></i>
+            <div class="btn pink-normal-btn">
+              <i class="fa-solid fa-palette fa-lg"></i>
             </div>
           </div>
         <% end %>
