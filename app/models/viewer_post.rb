@@ -5,7 +5,7 @@ class ViewerPost < ApplicationRecord
   belongs_to :user
   belongs_to :viewer
 
-  has_one :post_numbering
+  has_one :post_numbering, dependent: :destroy
 
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
