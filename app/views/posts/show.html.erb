@@ -6,7 +6,7 @@
       <!--クリエイター投稿の場合-->
       <% if @post.respond_to?(:creator_id) && @post.creator_id.present? %>
         <div style="height:fit-content;">
-          <div class="d-inline-flex" style="height:75px;">
+          <div class="d-inline-flex" style="height:75px; padding:5px;">
             <%= link_to creator_path(@post.creator) do %>
               <%= image_tag(@post.creator.get_creator_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
             <% end %>
@@ -64,7 +64,7 @@
       <!--ビューワー投稿の場合-->
       <% else %>
         <div class="timeline" style="height:fit-content;">
-          <div style="height:75px; padding:5px;">
+          <div class="d-inline-flex" style="height:75px; padding:5px;">
             <%= link_to viewer_path(@post.viewer) do %>
               <%= image_tag(@post.viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
             <% end %>
