@@ -35,7 +35,7 @@
 <!--<br>-->
 <!--<br>-->
 
-<span style="color: red; ">***また、使いやすいSNSにするために ***
+<span style="color: red; ">***また、使いやすいSNSにするために ***<span>
 <br>
 <br>
 <span style="background-color:#ffdde9">***1,*** SNSの特性として、スマートフォンで利用されやすいため、**レスポンシブ対応 **させる。</span>
