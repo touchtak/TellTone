@@ -35,13 +35,13 @@
 <!--<br>-->
 <!--<br>-->
 
-<span style="color: red; ">***また、使いやすいSNSにするために ***<span>
+<span style="color: red; ">***また、使いやすいSNSにするために***<span>
 <br>
 <br>
-<span style="background-color:#ffdde9">***1,*** SNSの特性として、スマートフォンで利用されやすいため、**レスポンシブ対応 **させる。</span>
+<span style="background-color:#ffdde9">***1,*** SNSの特性として、スマートフォンで利用されやすいため、**レスポンシブ対応** させる。</span>
 <br>
 <br>
-<span style="background-color:#ffdde9">***2,*** 日常的に利用するものである為、**アースカラー **を取り入れて、見ていて疲れないカラーリングにする</span>
+<span style="background-color:#ffdde9">***2,*** 日常的に利用するものである為、**アースカラー** を取り入れて、見ていて疲れないカラーリングにする</span>
 
 
 
