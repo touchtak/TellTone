@@ -5,6 +5,10 @@
 
 //= stub flash_window
 //= require_tree .
+//= require jquery
+//= require jquery.jscroll.min.js
+//= require rails-ujs
+//= require audiojs
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
@@ -19,3 +23,44 @@ import "../stylesheets/application";
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+// 無限スクロール用
+/* global $ */
+$(window).on('scroll', function() {
+  var scrollHeight = $(document).height();
+  var scrollPosition = $(window).height() + $(window).scrollTop();
+  if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
+    $('.jscroll').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a'
+    });
+  }
+});
+
+// ページ最上部移動ボタン用
+$(function() {
+  $('#back').on('click', function(event){
+    $('body, html').animate({
+      scrollTop:0
+    }, 800);
+    event.preventDefault();
+  });
+});
+
+// ハンバーガーメニュー用
+$(function(){
+  $(document).on('click', '.menu-trigger', function(){
+    $(".menu-trigger").toggleClass('active');
+    $('#sp-menu').fadeToggle();
+    event.preventDefault();
+  });
+});
+
+$(function(){
+  $(document).on('click', '.menu-trigger.active', function(){
+    if(window.innerWidth <= 680){
+      $(".menu-trigger").removeClass('active');
+      $('#sp-menu').fadeOut();
+    }
+  });
+});

@@ -1,0 +1,92 @@
+<!--クリエイター情報-->
+<div class="row p-3 mb-3" style="border-bottom:1px solid #aaa">
+  <div class="col-md-1">
+    <%= image_tag(@creator.get_creator_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
+  </div>
+
+  <div class="col-md-11">
+
+    <div class="d-flex float-right">
+      <%= link_to requests_path(@creator) do %>
+        <div class="btn-group btn-group-md">
+          <div class="btn btn-secondary">
+            リクエスト
+          </div>
+        </div>
+      <% end %>
+
+      <!--自分のクリエイターページであれば、投稿・編集ページへのリンクを表示-->
+      <% if @creator.user_id == current_user.id %>
+
+        <%= link_to new_creator_posts_path do %>
+          <div class="btn-group btn-group-md ml-3">
+            <div class="btn pink-normal-btn">
+              <i class="fa-solid fa-palette fa-lg"></i>
+            </div>
+          </div>
+        <% end %>
+        <%= link_to edit_creator_path do %>
+          <div class="btn-group btn-group-md ml-3">
+            <div class="btn btn-secondary">
+              <i class="fa-solid fa-wrench fa-lg"></i>
+            </div>
+          </div>
+        <% end %>
+
+      <!--自分以外のクリエイターページであれば、フォローボタンを表示-->
+      <% else %>
+        <div class="ml-3" id="creator-follow-contents-<%= @creator.id %>">
+          <%= render partial:"relationships/creator_follow_btn", locals: {creator: @creator} %>
+        </div>
+      <% end %>
+    </div>
+
+    <div style="display:flex;">
+      <h4 class="mb-0 mr-2"><%= @creator.name %></h4>
+      <p><small class="text-body-secondary">id: </small><%= @creator.user.name %></p>
+    </div>
+
+    <div>
+      <p><%= @creator.introduction %></p>
+    </div>
+
+    <div id="creator-follower-count-<%= @creator.id %>">
+      <%= render partial:"relationships/creator_follower_count", locals: {creator: @creator} %>
+    </div>
+  </div>
+</div>
+
+<div class="row pb-3 mb-4" style="border-bottom:1px solid #aaa">
+  <div class="col-md-12">
+    <div class="d-flex justify-content-around">
+      <div>
+        <%= link_to creator_path(@creator), class: "black-text-link" do %>
+          投稿
+        <% end %>
+      </div>
+
+      <div>
+        <%= link_to work_index_path(@creator), class: "black-text-link" do %>
+          作品
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--クリエイター投稿-->
+<div class="row">
+
+  <!--サイドバー-->
+  <div class="col-md-3"></div>
+
+  <!--タイムライン-->
+  <div class="col-md-6">
+    <div class="w-100">
+      <%= render 'shared/timeline', posts: @posts %>
+    </div>
+  </div>
+
+  <!--余白-->
+  <div class="col-md-3"></div>
+</div>

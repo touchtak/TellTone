@@ -1,6 +1,7 @@
 class ViewersController < ApplicationController
+  before_action :current_viewer_existence_before_check, except: [:new, :create]
   before_action :current_viewer_existence_check, only: [:new, :create]
-  before_action :viewer_existence_check, only: [:show]
+  before_action :viewer_existence_check, only: [:show, :edit]
   before_action :viewer_current_user_verification, only: [:edit, :update]
 
   # ビューワー情報登録ページ
@@ -21,7 +22,8 @@ class ViewersController < ApplicationController
       flash[:notice] = "アカウントを作成しました。ようこそ！"
       redirect_to viewer_path(viewer)
     else
-      @viewer = Viewer.new
+      @viewer = viewer
+      flash.now[:notice] = "アカウント作成に失敗しました"
       render :new
     end
   end
@@ -29,7 +31,9 @@ class ViewersController < ApplicationController
   # 各ビューワー詳細ページ
   def show
     @viewer = Viewer.find(params[:id])
-    @posts = ViewerPost.where(viewer_id: @viewer.id)
+    @followings = (@viewer.viewer_followings + @viewer.creator_followings)
+    @post_data = ViewerPost.where(viewer_id: @viewer.id).sort_by(&:created_at).reverse
+    @posts = Kaminari.paginate_array(@post_data).page(params[:page]).per(10)
   end
 
   def index
@@ -43,9 +47,9 @@ class ViewersController < ApplicationController
     viewer = Viewer.find(params[:id])
     if viewer.update(viewer_params)
       flash[:notice] = "変更しました"
-      redirect_to viewer_path()
+      redirect_to viewer_path(current_user.viewer_id)
     else
-      flash[:notice] = "変更に失敗しました"
+      flash.now[:notice] = "変更に失敗しました"
       @viewer = viewer
       render :edit
     end
@@ -60,14 +64,16 @@ class ViewersController < ApplicationController
   # ビューワー作成済みの時、新規作成ページへのアクセスを制限する
   def current_viewer_existence_check
     if current_user.viewer_id.present?
+      flash[:notice] = "ビューワー情報は登録済みです"
       redirect_to viewer_path(current_user.viewer_id)
     end
   end
 
-  # 存在しないviewerのshowページに行こうとした際に、アクセスを制限する
-  def  viewer_existence_check
-    unless Viewer.exists?(id: params[:id])
-      redirect_to posts_path
+  # 閲覧しようとしたビューワーidが存在しない場合、詳細画面へのアクセスを制限する
+  def viewer_existence_check
+    unless Viewer.exists?(params[:id])
+      flash[:notice] = "ビューワーが存在しません"
+      redirect_to viewer_path(current_user.viewer_id)
     end
   end
 
@@ -75,9 +81,8 @@ class ViewersController < ApplicationController
   def viewer_current_user_verification
     viewer = Viewer.find(params[:id])
     unless viewer.user_id == current_user.id
-      @viewer = Viewer.find(current_user.viewer_id)
-      @posts = ViewerPost.where(viewer_id: @viewer.id)
-      render :show
+      flash[:notice] = "他のビューワーの情報は編集できません"
+      redirect_to viewer_path(current_user.viewer_id)
     end
   end
 

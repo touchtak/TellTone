@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-md-12 d-flex justify-content-end">
+    <div class="btn btn-group">
+      <%= link_to creator_path(@creator), class: "btn btn-outline-secondary mr-3" do %>
+        戻る
+      <% end %>
+
+      <%= link_to new_request_path(@creator), class: "btn btn-outline-secondary" do %>
+        リクエストする
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3"></div>
+
+  <div class="col-md-6">
+    <div class="text-center mt-5">
+      <h3><%= @creator.name %> さんへのリクエスト</h3>
+    </div>
+
+    <div class="scroll-list jscroll w-100">
+      <!--投稿がない場合-->
+      <% unless @requests.present? %>
+        <div class="text-center mt-5">
+          <h4 class="no-post">投稿がありません</h4>
+        </div>
+      <% end %>
+
+      <% @requests.each do |request| %>
+      <div class="timeline" style="height:fit-content;">
+        <div class="d-inline-flex" style="height:75px; padding:5px;">
+          <%= link_to viewer_path(request.viewer) do %>
+            <%= image_tag(request.viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
+          <% end %>
+          <div class="ml-2">
+            <%= link_to viewer_path(request.viewer) do %>
+              <p class="post-body">
+                <span style="font-size:20px;"><%= request.viewer.name %></span>
+                <small class="text-body-secondary">id: <%= request.viewer.user.name %></small>
+              </p>
+            <% end %>
+          </div>
+        </div>
+
+        <div style="padding:5px; margin-left:55px; height:fit-content;">
+          <div>
+            <p class="post-body"><%= request.body %></p>
+          </div>
+
+          <div class="d-flex justify-content-end mt-2">
+            <!--削除・編集ボタン-->
+            <% if request.viewer.user_id == current_user.id %>
+              <%= link_to destroy_request_path(request), method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
+                <i class="fa-solid fa-trash"></i>
+              <% end %>
+              <%= link_to edit_request_path(request) do %>
+                <i class="fa-solid fa-wrench ml-3"></i>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+      <%= paginate @requests %>
+    </div>
+  </div>
+
+  <div class="col-md-3"></div>
+</div>

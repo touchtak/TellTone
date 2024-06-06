@@ -58,6 +58,13 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'rails-i18n'
 
+gem 'jquery-rails'
+gem 'kaminari'
+
+# 音声ファイル投稿用
+gem 'carrierwave'
+gem 'audiojs-rails'
+
 gem 'dotenv-rails'
 group :production do
   gem 'mysql2'

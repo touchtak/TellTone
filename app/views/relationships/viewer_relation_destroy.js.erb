@@ -1,0 +1,2 @@
+$('#viewer-follow-contents-<%= @viewer.id %>').html("<%= j(render partial: 'relationships/viewer_follow_btn', locals: {viewer: @viewer}) %>")
+$('#viewer-follow-count-<%= @viewer.id %>').html("<%= j(render partial: 'relationships/viewer_follow_count', locals: {viewer: @viewer, followings: @followings}) %>")

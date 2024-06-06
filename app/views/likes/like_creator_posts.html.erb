@@ -1,0 +1,81 @@
+<!--ビューワー情報-->
+<div class="row p-3 mb-3" style="border-bottom:1px solid #aaa">
+  <div class="col-md-1">
+    <%= image_tag(@viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
+  </div>
+
+  <div class="col-md-11">
+
+    <div class="float-right">
+    <!--自分のビューワーページであれば、編集ページへのリンクを表示-->
+    <% if @viewer.user_id == current_user.id %>
+      <%= link_to edit_viewer_path do %>
+        <div class="btn-group btn-group-md">
+          <div class="btn btn-secondary">
+            <i class="fa-solid fa-wrench fa-lg"></i>
+          </div>
+        </div>
+      <% end %>
+
+      <!--自分以外のビューワーページであれば、フォローボタンを表示-->
+      <% else %>
+        <div id="viewer-follow-contents-<%= @viewer.id %>">
+          <%= render partial:"relationships/viewer_follow_btn", locals: { viewer: @viewer } %>
+        </div>
+      <% end %>
+    </div>
+
+    <div style="display:flex;">
+      <h4 class="mb-0 mr-2"><%= @viewer.name %></h4>
+      <p><small class="text-body-secondary">id: </small><%= @viewer.user.name %></p>
+    </div>
+
+    <div>
+      <p><%= @viewer.introduction %></p>
+    </div>
+
+    <!--フォロー・フォロワーのカウント表示-->
+    <div id="viewer-follow-count-<%= @viewer.id %>">
+      <%= render partial:"relationships/viewer_follow_count", locals: {viewer: @viewer, followings: @followings} %>
+    </div>
+  </div>
+</div>
+
+<div class="row pb-3 mb-4" style="border-bottom:1px solid #aaa">
+  <div class="col-md-12">
+    <div class="d-flex justify-content-around">
+      <div>
+        <%= link_to viewer_path(@viewer), class: "black-text-link" do %>
+          投稿
+        <% end %>
+      </div>
+
+      <div>
+        <%= link_to like_posts_path(@viewer), class: "black-text-link" do %>
+          いいね
+        <% end %>
+      </div>
+
+      <div>
+        <%= link_to like_creator_posts_path(@viewer), class: "black-text-link" do %>
+          いいねした作品
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--ビューワー投稿-->
+<div class="row">
+
+  <!--サイドバー-->
+  <div class="col-md-3"></div>
+
+  <!--タイムライン-->
+  <div class="col-md-6 post-page">
+      <%= render 'shared/timeline', posts: @like_works %>
+  </div>
+
+  <!--余白-->
+  <div class="col-md-3"></div>
+</div>

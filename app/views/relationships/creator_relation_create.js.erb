@@ -1,0 +1,2 @@
+$('#creator-follow-contents-<%= @creator.id %>').html("<%= j(render partial: 'relationships/creator_follow_btn', locals: {creator: @creator}) %>")
+$('#creator-follower-count-<%= @creator.id %>').html("<%= j(render partial: 'relationships/creator_follower_count', locals: {creator: @creator}) %>")

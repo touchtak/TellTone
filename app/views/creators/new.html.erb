@@ -1,0 +1,38 @@
+<!--エラーメッセージ-->
+<%= render "devise/shared/error_messages", resource: @creator %>
+
+<!--ページ名-->
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h2>クリエイター情報を登録しましょう！</h2>
+  </div>
+</div>
+
+<!--入力フォーム-->
+<div class="row d-flex justify-content-center">
+  <div class="designed-forms d-flex justify-content-center">
+    <%= form_with model: @creator, url: creator_create_path, multipart: true do |f|  %>
+
+      <div class="field mb-3">
+        <%= f.label :creator_icon, "アイコン" %>
+        <%= f.file_field :creator_icon %>
+      </div>
+
+      <div class="field mb-3">
+        <%= f.label '表示名' %><br />
+        <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+      </div>
+
+      <div class="field mb-3">
+        <%= f.label '自己紹介' %><br />
+        <%= f.text_area :introduction, autocomplete: "introduction" %>
+      </div>
+
+      <div class="actions d-flex justify-content-center">
+        <div class="btn-group btn-group-md">
+        <%= f.submit "完了", class: "btn btn-outline-success", style: "width:100%;" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

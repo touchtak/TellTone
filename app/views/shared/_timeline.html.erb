@@ -1,53 +1,118 @@
-<table style="width:400px;">
-  <tbody>
-    <% posts.each do |post| %>
-      <% if post.respond_to?(:creater_id) && post.creater_id.present? %>
-        <%= link_to creater_path(post.creater) do %>
-          <tr class="timeline" style="height:fit-content; border:1px solid #aaa">
-            <td>
-              <!--クリエイターアイコン-->
-            </td>
-            <td>
-              <%= post.body %>
-              <%= post.image %>
-            </td>
-          </tr>
-        <% end %>
+<div class="scroll-list jscroll">
+  <!--投稿がない場合-->
+  <% unless posts.present? %>
+    <div class="d-flex justify-content-center mt-5">
+      <h4>投稿がありません</h4>
+    </div>
+  <% end %>
 
-      <% else %>
-        <tr class="timeline">
-          <td style="width:75px; height:75px; padding:5px;">
-            <%= link_to viewer_path(post.viewer) do %>
-              <%= image_tag(post.viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 100%; max-height: 100%; object-fit: contain;") %>
-            <% end %>
-            <%= link_to post_path(post.id) do %>
-              <div></div>
-            <% end %>
-          </td>
+  <% posts.each do |post| %>
 
-          <td style="padding:5px;">
+    <!--該当する投稿がない場合-->
+    <% if post.respond_to?(:creator_id) && post.creator_id.blank? %>
+    <div></div>
+    <% elsif post.respond_to?(:viewer_id) && post.viewer_id.blank? %>
+    <div></div>
+
+    <!--クリエイター投稿の場合-->
+    <% elsif post.respond_to?(:creator_id) && post.creator_id.present? %>
+      <div class="timeline" style="height:fit-content;">
+        <div class="d-inline-flex" style="height:75px; padding:5px;">
+          <%= link_to creator_path(post.creator) do %>
+            <%= image_tag(post.creator.get_creator_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
+          <% end %>
+          <div class="ml-2">
+            <%= link_to creator_path(post.creator) do %>
+              <p class="post-body">
+                <span style="font-size:20px;"><%= post.creator.name %></span>
+                <small class="text-body-secondary">id: <%= post.user.name %></small>
+              </p>
+            <% end %>
+          </div>
+        </div>
+
+        <div style="padding:5px; margin-left:55px; height:fit-content;">
+          <%= link_to post_path(post.post_numbering_id) do %>
             <div>
-              <%= link_to viewer_path(post.viewer) do %>
-                <p class="post-body"><%= post.viewer.name %><small class="text-body-secondary"> id: <%= post.user.name %></small></p>
-              <% end %>
+              <p class="post-body"><%= post.body %></p>
             </div>
+            <% if post.post_image.attached? %>
+              <%= image_tag(post.post_image, class: "img-fluid", style: "max-width: 300px; max-height: 400px; object-fit: contain;") %>
+            <% end %>
+          <% end %>
+          <% if post.audio.present? %>
+            <audio src= "<%= "#{post.audio}" %>" controls="">
+              <a src="<%= "#{post.audio}" %>">ダウンロード</a>
+            </audio>
+          <% end %>
 
-            <%= link_to post_path(post.id) do %>
-              <div>
-                <p class="post-body"><%= post.body %></p>
-              </div>
+          <div class="d-flex justify-content-end mt-2">
+            <!--いいねボタン-->
+            <%= render "likes/like", post: post %>
+
+            <!--コメントボタン-->
+            <%= link_to new_comment_path(post.post_numbering_id), class: "blue-text-link" do %>
+              <i class="fa-regular fa-comment mr-3"></i>
             <% end %>
 
+            <!--削除ボタン-->
             <% if post.user_id == current_user.id %>
-              <div class="float-right pr-1 pb-1">
-                <%= link_to post_path(post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？" do %>
-                  <i class="fa-solid fa-trash"></i>
-                <% end %>
-              </div>
+              <%= link_to post_path(post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？", class: "blue-text-link" do %>
+                <i class="fa-solid fa-trash mr-3"></i>
+              <% end %>
             <% end %>
-          </td>
-        </tr>
-      <% end %>
+          </div>
+        </div>
+      </div>
+
+    <!--ビューワー投稿の場合-->
+    <% else %>
+      <div class="timeline" style="height:fit-content;">
+        <div class="d-inline-flex" style="height:75px; padding:5px;">
+          <%= link_to viewer_path(post.viewer) do %>
+            <%= image_tag(post.viewer.get_viewer_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
+          <% end %>
+          <div class="ml-2">
+            <%= link_to viewer_path(post.viewer) do %>
+              <p class="post-body">
+                <span style="font-size:20px;"><%= post.viewer.name %></span>
+                <small class="text-body-secondary">id: <%= post.user.name %></small>
+              </p>
+            <% end %>
+          </div>
+        </div>
+
+        <div style="padding:5px; margin-left:55px; height:fit-content;">
+          <%= link_to post_path(post.post_numbering_id) do %>
+            <div>
+              <p class="post-body"><%= post.body %></p>
+            </div>
+            <% if post.post_image.attached? %>
+              <%= image_tag(post.post_image, class: "img-fluid", style: "max-width: 300px; max-height: 400px; object-fit: contain;") %>
+            <% end %>
+          <% end %>
+
+          <div class="d-flex justify-content-end mt-2">
+            <!--いいねボタン-->
+            <%= render "likes/like", post: post %>
+
+            <!--コメントボタン-->
+            <%= link_to new_comment_path(post.post_numbering_id), class: "blue-text-link" do %>
+              <i class="fa-regular fa-comment mr-3"></i>
+            <% end %>
+
+            <!--削除ボタン-->
+            <% if post.user_id == current_user.id %>
+              <%= link_to post_path(post.post_numbering_id), method: :delete, "data-confirm" => "投稿を削除しますか？", class: "blue-text-link" do %>
+                <i class="fa-solid fa-trash mr-3"></i>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
     <% end %>
-  </tbody>
-</table>
+  <% end %>
+
+  <%= paginate posts %>
+</div>

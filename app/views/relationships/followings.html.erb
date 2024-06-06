@@ -1,0 +1,37 @@
+<h2>フォロー一覧</h2>
+
+<table class="table table-hover table-inverse">
+    <tbody class="scroll-list jscroll">
+      <% @followings.each do |following| %>
+        <tr>
+          <!--クリエイターの場合-->
+          <% if following.is_a?(Creator) %>
+            <td>
+              <%= link_to creator_path(following.id) do %>
+                <%= image_tag(following.get_creator_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to creator_path(following.id), class: "black-text-link" do %>
+                <i class="fa-solid fa-star"></i> <%= following.name %>
+              <% end %>
+            </td>
+
+          <!--ビューワーの場合-->
+          <% else %>
+          <td>
+              <%= link_to viewer_path(following.id) do %>
+                <%= image_tag(following.get_viewer_icon, class: "img-fluid", style: "max-width: 60px; max-height: 60px; object-fit: contain;") %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to viewer_path(following.id), class: "black-text-link" do %>
+                <%= following.name %>
+              <% end %>
+            </td>
+
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+</table>

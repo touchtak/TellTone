@@ -1,0 +1,44 @@
+<!--ページ名-->
+<div class="row">
+  <div class="col-md-8 offset-md-2 d-flex justify-content-around" style="border-bottom:1px solid #aaa">
+    <div class="btn btn-group-lg">
+      <%= link_to  post_search_form_path, class: 'btn btn-outline-secondary mr-3' do %>
+        投稿
+      <% end %>
+
+      <%= link_to  search_form_path, class: 'btn btn-secondary mr-3' do %>
+        ユーザー
+      <% end %>
+
+      <%= link_to  tag_search_form_path, class: 'btn btn-secondary mr-3' do %>
+        タグ
+      <% end %>
+
+      <%= link_to  emotion_search_form_path, class: 'btn btn-secondary mr-3' do %>
+        イメージ
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!--入力フォーム-->
+<div class="row d-flex justify-content-center pt-3">
+  <div class="designed-forms d-flex justify-content-center">
+    <%= form_with url: search_path, local: true, method: :get do |f| %>
+      <div class="field mb-3">
+        <%= f.text_field :word, autofocus: true, style: "width:180px;" %>
+      </div>
+
+      <div class="field mb-3">
+        <%= f.select :range, options_for_select([['作品'],['つぶやき']]) %>
+        <%= f.select :sequence, options_for_select([['新着'], ['人気'],['ランダム']]) %>
+      </div>
+
+      <div class="actions d-flex justify-content-center">
+        <div class="btn-group btn-group-md">
+          <%= f.submit "検索", class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
